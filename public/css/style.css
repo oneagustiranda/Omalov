@@ -1,0 +1,69 @@
+/* view register */
+.register, .login {
+    height: 100vh;
+}
+
+/* akhir view register */
+
+.form-login .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-login input, .form-registration input {
+    padding: 1.5rem;
+    border-radius: 50rem;
+    margin-bottom: 7px;
+}
+
+.form-login button, .form-registration button {
+    padding: 0.5rem;
+}
+
+.login .login-left .row,
+.register .register-left .row {
+    width: 100%;
+}
+
+.login .login-left .row .form-container,
+.register .register-left .row .form-container {
+    width: 50%;
+}
+
+
+/*Responsive Media*/
+/* Media Mobile */
+@media (max-width: 37em) {
+    .login .login-left,
+    .register .register-left {
+        width: 100vw;
+    }
+
+    .login .login-left .row,
+    .register .register-left .row {
+        width: 100vw;
+    }
+
+    .login .login-left .row .form-container,
+    .register .register-left .row .form-container {
+        width: 75%;
+    }    
+
+    .login .login-right,
+    .register .register-right {
+        width: 100vw;
+        visibility: hidden;
+    }
+}
+
+@media (min-width: 37.1em) {
+    .login .login-left,
+    .register .register-left {
+        width: 70vw;
+    }
+
+    .login .login-right,
+    .register .register-right {
+        height: 100vh;
+        width: 30vw;
+    }
+}

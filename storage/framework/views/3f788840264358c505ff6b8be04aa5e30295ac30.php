@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand" href="/">Omalov</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,16 +7,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link <?php echo e(($active === 'home') ? 'active' : ''); ?>" href="/">Home</a>
+            <a class="nav-link <?php echo e(Request::is('home') ? 'active' : ''); ?>" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo e(($active=== 'about') ? 'active' : ''); ?>" href="/about">About</a>
+            <a class="nav-link <?php echo e(Request::is('about') ? 'active' : ''); ?>" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo e(($active=== 'posts') ? 'active' : ''); ?>" href="/posts">Blog</a>
+            <a class="nav-link <?php echo e(Request::is('posts') ? 'active' : ''); ?>" href="/posts">Blog</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo e(($active=== 'categories') ? 'active' : ''); ?>" href="/categories">Categories</a>
+            <a class="nav-link <?php echo e(Request::is('categories') ? 'active' : ''); ?>" href="/categories">Categories</a>
           </li>
         </ul>
 
@@ -42,8 +42,8 @@
         
         <?php else: ?>
           <form class="d-flex">
-            <a href="/login" class="btn btn-link <?php echo e(($active=== 'login') ? 'active' : ''); ?>">Masuk</a>
-            <a href="/register" class="btn rounded-pill btn-outline-light">Daftar</a>
+            <a href="/login" class="btn rounded-pill btn-link <?php echo e(($active=== 'login') ? 'active' : ''); ?> mr-2">Masuk</a>
+            <a href="/register" class="btn rounded-pill btn-outline-primary">Daftar</a>
           </form>
         <?php endif; ?>
         

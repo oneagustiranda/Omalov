@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-    <title>Omalov | <?php echo e($title); ?></title>
+    <title><?php echo e($title); ?> | Omalov</title>
   </head>
   <body>
     <?php echo $__env->make('partials.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

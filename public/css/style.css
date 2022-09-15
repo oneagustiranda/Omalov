@@ -5,17 +5,26 @@
 
 /* akhir view register */
 
+/* view login */
 .form-login .form-floating:focus-within {
     z-index: 2;
 }
 
-.form-login input, .form-registration input {
+.form-login input, .form-registration input, .form-verification input {
     padding: 1.5rem;
+}
+
+.form-login input, .form-registration input, .form-verification input, .form-verification select {
     border-radius: 50rem;
     margin-bottom: 7px;
 }
 
-.form-login button, .form-registration button {
+.form-verification .form-check input {
+    padding: 0.5rem;
+    margin-bottom: 7px;
+}
+
+.form-login button, .form-registration button, .form-verification button {
     padding: 0.5rem;
 }
 
@@ -31,8 +40,22 @@
 
 
 /*Responsive Media*/
+
 /* Media Mobile */
 @media (max-width: 37em) {
+    .navbar {
+        visibility: hidden;
+    }
+
+    .btn-group {
+        width: 100% !important;
+    }
+
+    /* awal page login dan register */
+    .register, .login {
+        margin-top: 2em;
+    }
+
     .login .login-left,
     .register .register-left {
         width: 100vw;
@@ -40,6 +63,7 @@
 
     .login .login-left .row,
     .register .register-left .row {
+        align-items: flex-start !important;
         width: 100vw;
     }
 
@@ -53,9 +77,15 @@
         width: 100vw;
         visibility: hidden;
     }
+    /* akhir page login dan register */
 }
 
 @media (min-width: 37.1em) {
+    .home-content .btn-group{
+        visibility: hidden;
+    }
+
+    /* awal page login dan register */
     .login .login-left,
     .register .register-left {
         width: 70vw;
@@ -66,4 +96,5 @@
         height: 100vh;
         width: 30vw;
     }
+    /* akhir page login dan register */
 }

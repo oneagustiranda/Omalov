@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class UserIdentity extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function marital_status()
+    {
+        return $this->belongsTo(MaritalStatus::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

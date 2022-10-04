@@ -15,15 +15,12 @@ return new class extends Migration
     {
         Schema::create('user_identities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->unique();
-            $table->string('id_photo');
-            $table->string('id_number');
-            $table->date('date_birth');
-            $table->boolean('gender');
-            $table->string('address');
-            $table->string('city');
+            $table->foreignId('user_id');
+            $table->string('gender');
+            $table->foreignId('marital_status_id');
+            $table->string('year_birth');
             $table->string('province');
-            $table->string('marital_status');
+            $table->string('city');
             $table->timestamps();
         });
     }

@@ -18,16 +18,16 @@
                         <form method="POST" action="/verification">
                             @csrf
                             <div class="form-floating">
-                                <input type="text" name="date-birth" class="form-control @error('date-birth') is-invalid @enderror" id="date-birth" placeholder="06/18/1985" pattern="[0-9]{4}" required value="{{ old('date-birth') }}">
-                                <label for="date-birth">Tahun lahir (yyyy)</label>
-                                @error('date-birth')
+                                <input type="text" name="year_birth" class="form-control @error('year_birth') is-invalid @enderror" id="year_birth" placeholder="06/18/1985" pattern="[0-9]{4}" required value="{{ old('year_birth') }}">
+                                <label for="year_birth">Tahun lahir (yyyy)</label>
+                                @error('year_birth')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-floating">                            
-                                <select id="gender" class="form-select">
-                                <option selected>Laki-laki</option>
-                                <option>Perempuan</option>
+                                <select name="gender" class="form-select">
+                                    <option value="Laki-laki" selected>Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
                                 </select> 
                                 <label for="gender">Jenis kelamin</label>
                             </div>
@@ -40,19 +40,22 @@
                             </div>
                             <div class="form-floating">
                                 <input type="text" name="city" class="form-control @error('city') is-invalid @enderror" id="city" placeholder="Jl. Ahmad Yani No. 8" required value="{{ old('city') }}">
-                                <label for="city">Kota</label>
+                                <label for="city">Kota/Kabupaten</label>
                                 @error('city')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-floating">                            
-                                <select id="marital-status" class="form-select">
-                                <option selected>Belum kawin</option>
-                                <option>Kawin</option>
-                                <option>Cerai hidup</option>
-                                <option>Cerai mati</option>
-                                </select> 
-                                <label for="marital-status">Status perkawinan</label>
+                            <div class="form-floating">
+                                <select class="form-select" name="marital_status_id">
+                                  @foreach ($marital_statuses as $category)
+                                    @if(old('category_id') == $category->id)
+                                      <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                    @else
+                                      <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endif
+                                  @endforeach            
+                                </select>
+                                <label for="marital_status" class="form-label">Status perkawinan</label>
                             </div>
                             <div class="form-check mt-4">
                                 <input class="form-check-input" type="checkbox" value="" id="termsCondition" onclick="btnEnable()">

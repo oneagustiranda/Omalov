@@ -43,8 +43,8 @@
 
 /* Media Mobile */
 @media (max-width: 37em) {
-    .navbar {
-        visibility: hidden;
+    .mobile-hidden, .navbar {
+        visibility: hidden !important;
     }
 
     .btn-group {
@@ -69,7 +69,7 @@
 
     .login .login-left .row .form-container,
     .register .register-left .row .form-container {
-        width: 75%;
+        width: 80%;
     }    
 
     .login .login-right,

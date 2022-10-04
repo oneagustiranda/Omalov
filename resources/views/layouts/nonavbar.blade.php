@@ -11,7 +11,7 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-    <title>Omalov | {{ $title }}</title>
+    <title>{{ $title }} | Omalov</title>
   </head>
   <body>
 

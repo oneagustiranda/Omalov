@@ -10,6 +10,12 @@ class VerificationController extends Controller
 {
     public function index()
     {
+        // function to check if user has been filled identity data
+        if (UserIdentity::where('user_id', auth()->user()->id)->exists())
+        {
+            return redirect('/verification/status');
+        }
+
         return view('verification.index', [
             'title' => 'Verifikasi Akun',
             'marital_statuses' => MaritalStatus::all()
@@ -30,6 +36,22 @@ class VerificationController extends Controller
 
         UserIdentity::create($validatedData);
 
-        return redirect('/login')->with('success', 'Pendaftaran berhasil, silahkan masuk!');
+        return redirect('/verification/status');
+    }
+
+    public function status()
+    {
+        // function to check if user has been filled identity data
+        if (UserIdentity::where('user_id', auth()->user()->id)->exists())
+        {
+            return view('verification.status', [
+                'title' => 'Verification status'
+            ]);            
+        }
+        else
+        {
+            return redirect('/verification');
+        }
+        
     }
 }

@@ -58,6 +58,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/verification', [VerificationController::class, 'index'])->middleware('auth');
 Route::post('/verification', [VerificationController::class, 'store']);
+Route::get('/verification/status', [VerificationController::class, 'status'])->middleware('auth');
 
 Route::get('/dashboard', function(){
     return view('dashboard.index');

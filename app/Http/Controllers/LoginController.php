@@ -25,9 +25,11 @@ class LoginController extends Controller
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
 
-            if(!auth()->user()->is_active){
+            if(!auth()->user()->is_active)
+            {
                 return redirect()->intended('/verification');
             }
+            
             return redirect()->intended('/dashboard');
         }
 

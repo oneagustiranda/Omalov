@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\DashboardPostController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,15 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/verification', [VerificationController::class, 'index'])->middleware('auth');
 Route::post('/verification', [VerificationController::class, 'store']);
 Route::get('/verification/status', [VerificationController::class, 'status'])->middleware('auth');
+
+Route::get('/admin', function(){
+    return view('admin.index');
+})->middleware('auth', 'activeUser', 'admin');
+
+Route::get('/admin/users', [AdminUserController::class, 'index'])->middleware('auth', 'activeUser', 'admin');
+
+
+
 
 Route::get('/dashboard', function(){
     return view('dashboard.index');

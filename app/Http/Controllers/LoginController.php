@@ -29,7 +29,10 @@ class LoginController extends Controller
             {
                 return redirect()->intended('/verification');
             }
-            
+            else if (auth()->user()->is_admin)
+            {
+                return redirect()->intended('/admin');
+            }
             return redirect()->intended('/dashboard');
         }
 

@@ -69,6 +69,7 @@ unset($__errorArgs, $__bag); ?>
         </div>
         <div class="mb-3">
           <label for="image" class="form-label">Pilih gambar sampul</label>
+          <input type="hidden" name="oldImage" value="<?php echo e($post->image); ?>">
           <?php if($post->image): ?>
             <img src="<?php echo e(asset('storage/' . $post->image)); ?>" class="img-preview img-fluid mb-3 sm-5 d-block">
           <?php else: ?>

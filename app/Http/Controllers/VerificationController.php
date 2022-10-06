@@ -15,11 +15,13 @@ class VerificationController extends Controller
         {
             return redirect('/verification/status');
         }
-
-        return view('verification.index', [
-            'title' => 'Verifikasi Akun',
-            'marital_statuses' => MaritalStatus::all()
-        ]);
+        else
+        {
+            return view('verification.index', [
+                'title' => 'Verifikasi Akun',
+                'marital_statuses' => MaritalStatus::all()
+            ]);
+        }        
     }
 
     public function store(Request $request)

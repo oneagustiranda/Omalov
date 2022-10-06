@@ -1,0 +1,67 @@
+:root {
+    --bg-bottombar: #ff5d39;
+    --color-bottombar: #ff9077;
+    --color-bottombar-hover: #ce4e32;
+    --color-bottombar-active: #fff;
+}
+
+/* awalan css untuk bottom bar (menu dibawah pada view mobile) */
+.bottom-bar .nav {
+    position: fixed;
+    bottom: 0;
+    list-style-type: none;
+    display: flex;
+    background-color: var(--bg-bottombar);
+    height: 75px;
+    border-radius: 20px 20px 0 0;
+}
+
+.bottom-bar .nav li a {
+    text-decoration: none;
+    color: var(--color-bottombar);
+    width: calc(100vw / 4);
+    height: 100%;
+    display: inline-grid;
+    place-items: center;
+    font-size: 20px;
+    z-index: 1;
+    position: relative;
+}
+
+.bottom-bar .nav li a .title {
+    display: none;
+    font-size: 14px;
+}
+
+.bottom-bar .nav li a:hover {
+    color: var(--color-bottombar-hover);
+}
+
+.bottom-bar .nav li a.nav-item-active {
+    color: var(--color-bottombar-active);
+    transform: translateY(-20%);
+    font-size: 35px;
+    transition: transform .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bottom-bar .nav li a.nav-item-active .title {
+    display: block;
+}
+
+.bottom-bar .nav .nav-indicator {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--bg-bottombar);
+    position: absolute;
+    top: -35px;
+    left: calc(300px - 290px);
+    transition: left .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);;
+}
+/* akhir css untuk bottom bar (menu dibawah pada view mobile) */
+
+@media (min-width: 37.1em) {
+    .bottom-bar .nav {
+        visibility: hidden;
+    }
+}

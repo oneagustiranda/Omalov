@@ -8,6 +8,10 @@
     <!-- CSS -->
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/dashboard.css" rel="stylesheet">
+
+    <link href="/css/bottombar.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     <link rel="stylesheet" type="text/css" href="/css/trix.css">
     <script type="text/javascript" src="/js/trix.js"></script>
 
@@ -31,8 +35,10 @@
     </div>
     </div>
 
+    @include('dashboard.layouts.bottombar')   
+    
 
     <script src="/js/bootstrap.js"></script>
-    <script src="dashboard.js"></script>
+    <script src="/js/bottombar.js"></script>
   </body>
 </html>

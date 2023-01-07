@@ -1,15 +1,98 @@
-<header class="navbar navbar-dark sticky-top bg-secondary flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand bg-secondary col-md-3 col-lg-2 me-0 px-3" href="#">Omalov</a>
-    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-    <div class="navbar-nav">
-      <div class="nav-item text-nowrap">
-        <form method="POST" action="/logout">
-          @csrf
-          <button type="submit" class="nav-link px-3 bg-secondary border-0">Keluar</button>
-        </form>
+<div class="header">
+  <div class="header-left">
+    <a href="index.html" class="logo"> <img src="assets/img/hotel_logo.png" width="50" height="70" alt="logo"> <span class="logoclass">ADMIN</span> </a>
+    <a href="index.html" class="logo logo-small"> <img src="assets/img/hotel_logo.png" alt="Logo" width="30" height="30"> </a>
+  </div>
+  <a href="javascript:void(0);" id="toggle_btn"> <i class="fa-solid fa-bars"></i> </a>
+  <a class="mobile_btn" id="mobile_btn"> <i class="fa-solid fa-bars"></i> </a>
+  <ul class="nav user-menu">
+    <li class="nav-item dropdown noti-dropdown">
+      <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> <i class="fa-solid fa-bell"></i> <span class="badge badge-pill">3</span> </a>
+      <div class="dropdown-menu notifications">
+        <div class="topnav-dropdown-header"> <span class="notification-title">Notifications</span> <a href="javascript:void(0)" class="clear-noti"> Clear All </a> </div>
+        <div class="noti-content">
+          <ul class="notification-list">
+            <li class="notification-message">
+              <a href="#">
+                <div class="media"> <span class="avatar avatar-sm">
+                  <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-02.jpg">
+                  </span>
+                  <div class="media-body">
+                    <p class="noti-details"><span class="noti-title">Carlson Tech</span> has approved <span class="noti-title">your estimate</span></p>
+                    <p class="noti-time"><span class="notification-time">4 mins ago</span> </p>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="notification-message">
+              <a href="#">
+                <div class="media"> <span class="avatar avatar-sm">
+                  <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-11.jpg">
+                  </span>
+                  <div class="media-body">
+                    <p class="noti-details"><span class="noti-title">International Software
+                      Inc</span> has sent you a invoice in the amount of <span class="noti-title">$218</span></p>
+                    <p class="noti-time"><span class="notification-time">6 mins ago</span> </p>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="notification-message">
+              <a href="#">
+                <div class="media"> <span class="avatar avatar-sm">
+                  <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-17.jpg">
+                  </span>
+                  <div class="media-body">
+                    <p class="noti-details"><span class="noti-title">John Hendry</span> sent a cancellation request <span class="noti-title">Apple iPhone
+                      XR</span></p>
+                    <p class="noti-time"><span class="notification-time">8 mins ago</span> </p>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="notification-message">
+              <a href="#">
+                <div class="media"> <span class="avatar avatar-sm">
+                  <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-13.jpg">
+                  </span>
+                  <div class="media-body">
+                    <p class="noti-details"><span class="noti-title">Mercury Software
+                    Inc</span> added a new product <span class="noti-title">Apple
+                    MacBook Pro</span></p>
+                    <p class="noti-time"><span class="notification-time">12 mins ago</span> </p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="topnav-dropdown-footer"> <a href="#">View all Notifications</a> </div>
       </div>
-    </div>
-  </header>
+    </li>
+
+    <li class="nav-item dropdown has-arrow">
+      <a href="#" class=" dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="user-img">
+          <i class="fa-solid fa-user"></i>
+        <span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item disabled" href="#">Action</a></li>
+        <li><a class="dropdown-item disabled" href="#">Another action</a></li>
+        <li>
+          <form method="POST" action="/logout">
+            @csrf
+            <button type="submit" class="dropdown-item">Keluar</button>
+          </form>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="top-nav-search">
+    <form>
+      @csrf
+      <input type="text" class="form-control" placeholder="Search here">
+      <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
+</div>

@@ -1,38 +1,38 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Dashboard | Omalov</title>
+<!DOCTYPE html>
+<html lang="id">
 
-    <!-- CSS -->
-    <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/trix.css">
-    <script type="text/javascript" src="/js/trix.js"></script>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>Admin Dashboard | Omalov</title>
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
-    <style>
-      trix-toolbar [data-trix-button-group="file-tools"]{
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
-    
-@include('admin.layouts.header')
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="/css/plugins/morris.css">
+	<link rel="stylesheet" href="/css/admin-style.css"> 
+</head>
 
-    <div class="container-fluid">
-    <div class="row">
-        @include('admin.layouts.sidebar')
+<body>
+	<div class="main-wrapper">
+		@include('admin.layouts.header')
+		@include('admin.layouts.sidebar')
+		<div class="page-wrapper">
+			<div class="content container-fluid">
+				@yield('container')
+			</div>
+		</div>
+	</div>
 
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        @yield('container')      
-        </main>
-    </div>
-    </div>
+	<!-- JS -->
+	<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+	<script src="/js/jquery-3.5.1.min.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.bundle.js"></script>
+	<script src="/plugins/jquery.slimscroll.min.js"></script>
+	<script src="/js/admin-script.js"></script>
+</body>
 
-
-    <script src="/js/bootstrap.js"></script>
-    <script src="dashboard.js"></script>
-  </body>
 </html>

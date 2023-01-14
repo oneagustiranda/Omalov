@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardPostController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
@@ -63,18 +64,16 @@ Route::get('/verification/status', [VerificationController::class, 'status'])->m
 
 Route::get('/admin', function(){
     return view('admin.index');
-})->middleware('auth', 'activeUser', 'admin');
+})->middleware('auth', 'isActive', 'isAdmin');
 
-Route::get('/admin/users', [AdminUserController::class, 'index'])->middleware('auth', 'activeUser', 'admin');
-
-
+Route::get('/admin/users', [AdminUserController::class, 'index'])->middleware('auth', 'isActive', 'isAdmin');
 
 
-Route::get('/dashboard', function(){
-    return view('dashboard.index');
-})->middleware('auth', 'activeUser');
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth', 'isActive');
 
 Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
 
-Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('isAdmin');

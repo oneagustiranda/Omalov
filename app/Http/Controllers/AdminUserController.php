@@ -11,9 +11,8 @@ class AdminUserController extends Controller
     // Show index view from user registered
     public function index()
     {
-        return view('admin.users.index', [
-            'title' => 'Verifikasi Akun',
-            'user_identities' => UserIdentity::all()
-        ]);
+        $users = User::all();
+        $userIdentities = UserIdentity::all();
+        return view('admin.users.index', compact('users', 'userIdentities'));
     }
 }

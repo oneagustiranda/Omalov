@@ -24,19 +24,26 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Name</th>
-                      <th scope="col">Year of birth</th>
-                      <th scope="col">Gender</th>
+                      <th scope="col">Year of Birth</th>
+                      <th scope="col">Verification</th>
                       <th scope="col">Is Active</th>
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach ($user_identities as $user_identity)
+                      @foreach ($users as $user)
                       <tr>
                           <td>{{ $loop->iteration }}</td>
-                          <td>{{ $user_identity->user->name }}</td>
-                          <td>{{ $user_identity->year_birth }}</td>
-                          <td>{{ $user_identity->gender }}</td>
-                          <td>{{ $user_identity->user->is_active }}</td>
+                          <td>{{ $user->name }}</td>                          
+                          
+                          @if($userIdentity = $userIdentities->where('user_id', $user->id)->first())
+                            <td>{{ $userIdentity->year_birth }}</td>
+                            <td>Data Filled</td>
+                          @else
+                            <td> - </td>
+                            <td>Not Filled</td>
+                          @endif
+                          
+                          <td>{{ $user->is_active }}</td>
                         </tr>
                       @endforeach
                   </tbody>

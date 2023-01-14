@@ -27,7 +27,7 @@
                 Hai, {{ auth()->user()->name }}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Profil</a></li>
+                <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <form method="POST" action="/logout">

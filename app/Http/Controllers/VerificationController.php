@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MaritalStatus;
+use App\Models\User;
 use App\Models\UserIdentity;
 use Illuminate\Http\Request;
+use App\Models\MaritalStatus;
 
 class VerificationController extends Controller
 {
@@ -46,6 +47,14 @@ class VerificationController extends Controller
         // function to check if user has been filled identity data
         if (UserIdentity::where('user_id', auth()->user()->id)->exists())
         {
+            // check user active and redirect 
+            // from verification status page to dashboard
+            $user = User::where('id', auth()->user()->id)->first();
+            if($user->is_active == true){
+                return redirect('/dashboard');
+            }
+
+            // redirect to verification status page
             return view('verification.status', [
                 'title' => 'Verification status'
             ]);            

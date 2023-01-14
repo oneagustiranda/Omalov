@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::connection('mysql2')->create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id');
             $table->foreignId('user_id');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::connection('mysql2')->dropIfExists('posts');
     }
 };

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('marital_statuses', function (Blueprint $table) {
+        Schema::connection('mysql')->create('marital_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marital_statuses');
+        Schema::connection('mysql')->dropIfExists('marital_statuses');
     }
 };

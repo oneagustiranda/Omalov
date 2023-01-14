@@ -9,6 +9,7 @@ class Category extends Model
 {
     use HasFactory;
  
+    protected $connection = 'mysql2';
     protected $guarded = ['id'];
 
     public function posts()

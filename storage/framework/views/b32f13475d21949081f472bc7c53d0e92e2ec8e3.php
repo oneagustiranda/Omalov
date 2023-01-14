@@ -32,7 +32,7 @@
                     <h2>
                         <a href="/posts/<?php echo e($item->slug); ?>" class="text-decoration-none"><?php echo e($item->title); ?></a>
                     </h2>
-                    <p>By. <a href="/posts?author=<?php echo e($item->author->username); ?>" class="text-decoration-none"><?php echo e($item->author->name); ?></a> in <a href="/posts?category=<?php echo e($item->category->slug); ?>" class="text-decoration-none"><?php echo e($item->category->name); ?></a></p>
+                    
 
                     <p><?php echo e($item->excerpt); ?></p>
 

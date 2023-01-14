@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
     use HasFactory, Sluggable;
 
-    //protected $fillable = ['title','excerpt','body'];
+    protected $connection = 'mysql2';
     protected $guarded = ['id'];
     protected $with = ['category', 'author'];
 
@@ -27,11 +28,17 @@ class Post extends Model
             });
         });
 
-        $query->when($filters['author'] ?? false, function($query, $author){
-            return $query->whereHas('author', function($query) use ($author){
-                $query->where('username', $author);
-            });
+        // old query use when db still one
+        // $query->when($filters['author'] ?? false, function($query, $author){
+        //     return $query->whereHas('author', function($query) use ($author){
+        //         $query->where('username', $author);
+        //     });
+        // });
+
+        $query->when($filters['author'] ?? false, function($query, $author) {
+            return DB::connection('mysql')->table('users')->where('username', $author);
         });
+        
 
     }
 

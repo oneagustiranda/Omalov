@@ -67,7 +67,8 @@ Route::get('/admin', function(){
 })->middleware('auth', 'isActive', 'isAdmin');
 
 Route::get('/admin/users', [AdminUserController::class, 'index'])->middleware('auth', 'isActive', 'isAdmin');
-
+Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit']);
+Route::patch('/admin/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
 
 
 

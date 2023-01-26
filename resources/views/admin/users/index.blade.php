@@ -19,19 +19,19 @@
           <div class="card card-table">
             <div class="card-body booking_card">
               <div class="table-responsive">
-                <table class="table table-sm table-stripped table-hover table-center mb-0">
+                <table class="datatable table table-sm table-stripped table-hover table-center mb-0">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Name</th>
                       <th scope="col">Year of Birth</th>
                       <th scope="col">Verification</th>
-                      <th scope="col">Is Active</th>
+                      <th scope="col" class="text-center">Is Active</th>
                     </tr>
                   </thead>
                   <tbody>
                       @foreach ($users as $user)
-                      <tr>
+                        <tr>
                           <td>{{ $loop->iteration }}</td>
                           <td>{{ $user->name }}</td>                          
                           
@@ -42,8 +42,19 @@
                             <td> - </td>
                             <td>Not Filled</td>
                           @endif
+
+                          @if($user->is_active)
+                            <td class="text-center">
+                              <span class="badge badge-pill bg-success">ACTIVE</span>
+                            </td>
+                          @else
+                            <td class="text-center">
+                              <span class="badge badge-pill bg-warning">INACTIVE</span>
+                            </td>
+                          @endif
                           
-                          <td>{{ $user->is_active }}</td>
+                          <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+
                         </tr>
                       @endforeach
                   </tbody>

@@ -37,7 +37,11 @@
                           
                           @if($userIdentity = $userIdentities->where('user_id', $user->id)->first())
                             <td>{{ $userIdentity->year_birth }}</td>
-                            <td>Data Filled</td>
+                            <td>
+                              <a href="/admin/users/{{ $user->id }}/edit">
+                                Data Filled &#8599;
+                              </a>
+                            </td>
                           @else
                             <td> - </td>
                             <td>Not Filled</td>
@@ -45,15 +49,13 @@
 
                           @if($user->is_active)
                             <td class="text-center">
-                              <span class="badge badge-pill bg-success">ACTIVE</span>
+                              <span class="badge badge-pill bg-success">ACTIVE</span>                              
                             </td>
                           @else
                             <td class="text-center">
                               <span class="badge badge-pill bg-warning">INACTIVE</span>
                             </td>
-                          @endif
-                          
-                          <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                          @endif                          
 
                         </tr>
                       @endforeach

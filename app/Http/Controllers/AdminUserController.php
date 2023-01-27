@@ -14,7 +14,7 @@ class AdminUserController extends Controller
     {
         // show user without role admin
         $users = User::where('is_admin', false)->get();
-        $userIdentities = UserIdentity::all();
+        $userIdentities = UserIdentity::select('user_id', 'year_birth')->get();
         return view('admin.users.index', compact('users', 'userIdentities'));
     }
 
@@ -31,7 +31,7 @@ class AdminUserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->all();
+        // $data = $request->all();
         $isActive = $request->input('is_active');
 
         $user = User::find($id);

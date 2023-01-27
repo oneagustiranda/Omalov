@@ -14,7 +14,7 @@
                         <h3 class="page-title mt-3">{{ $user->name }}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">Pengguna</li>
-                            <li class="breadcrumb-item">Pengguna terdaftar</li>
+                            <li class="breadcrumb-item"><a href="/admin/users/">Pengguna terdaftar</a></li>
                             <li class="breadcrumb-item active">{{ $user->name }}</li>
                         </ul>
                     </div>

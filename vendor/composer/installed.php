@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'c81457edda0d052c2300ad32bd3cbcf1c921664f',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -401,12 +401,12 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'c81457edda0d052c2300ad32bd3cbcf1c921664f',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -1410,6 +1410,15 @@
             'install_path' => __DIR__ . '/../webmozart/assert',
             'aliases' => array(),
             'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
+            'dev_requirement' => false,
+        ),
+        'webpatser/laravel-uuid' => array(
+            'pretty_version' => '4.0.1',
+            'version' => '4.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../webpatser/laravel-uuid',
+            'aliases' => array(),
+            'reference' => 'df92ebbc5ea71ee9e0d6e2861178be42ef7eb330',
             'dev_requirement' => false,
         ),
         'zbateson/mail-mime-parser' => array(

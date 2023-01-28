@@ -10,7 +10,7 @@ class UserIdentity extends Model
     use HasFactory;
 
     protected $connection = 'mysql';
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     public function marital_status()
     {

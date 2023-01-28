@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use App\Models\MaritalStatus;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
     {
         
         User::create([
+            'id' => (string) Str::uuid(),
             'name' => 'Agust',
             'username' => 'oneagustiranda',
             'email' => 'agust@gmail.com',

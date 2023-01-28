@@ -70,4 +70,15 @@
       0 => 'Spatie\\LaravelRay\\RayServiceProvider',
     ),
   ),
+  'webpatser/laravel-uuid' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Webpatser\\Uuid\\UuidServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Uuid' => 'Webpatser\\Uuid\\Uuid',
+    ),
+  ),
 );

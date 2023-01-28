@@ -15,13 +15,18 @@ class User extends Authenticatable
     
     use HasApiTokens, HasFactory, Notifiable;
 
+    // set primary key type from id to uuid
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.

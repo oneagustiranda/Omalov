@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -25,6 +26,7 @@ class RegisterController extends Controller
             'password' => 'required|min:5|max:80'
         ]);
 
+        $validatedData['id'] = (string) Str::uuid();
         $validatedData['password'] = Hash::make($validatedData['password']);
 
         User::create($validatedData);

@@ -56,6 +56,7 @@ class ComposerStaticInit24172d4f68ced6e188fac0c7303633a0
         'W' => 
         array (
             'Whoops\\' => 7,
+            'Webpatser\\Uuid\\' => 15,
             'Webmozart\\Assert\\' => 17,
         ),
         'T' => 
@@ -222,6 +223,10 @@ class ComposerStaticInit24172d4f68ced6e188fac0c7303633a0
         'Whoops\\' => 
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
+        'Webpatser\\Uuid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/webpatser/laravel-uuid/src/Webpatser/Uuid',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -612,7 +617,9 @@ class ComposerStaticInit24172d4f68ced6e188fac0c7303633a0
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminCategoryController.php',
+        'App\\Http\\Controllers\\AdminUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminUserController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\DashboardPostController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardPostController.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostController.php',
@@ -634,6 +641,7 @@ class ComposerStaticInit24172d4f68ced6e188fac0c7303633a0
         'App\\Http\\Requests\\UpdateUserIdentityRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateUserIdentityRequest.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\MaritalStatus' => __DIR__ . '/../..' . '/app/Models/MaritalStatus.php',
+        'App\\Models\\PasswordReset' => __DIR__ . '/../..' . '/app/Models/PasswordReset.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserIdentity' => __DIR__ . '/../..' . '/app/Models/UserIdentity.php',
@@ -5926,6 +5934,8 @@ class ComposerStaticInit24172d4f68ced6e188fac0c7303633a0
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
         'Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
+        'Webpatser\\Uuid\\Uuid' => __DIR__ . '/..' . '/webpatser/laravel-uuid/src/Webpatser/Uuid/Uuid.php',
+        'Webpatser\\Uuid\\UuidServiceProvider' => __DIR__ . '/..' . '/webpatser/laravel-uuid/src/Webpatser/Uuid/UuidServiceProvider.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',
         'Whoops\\Exception\\Frame' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Frame.php',

@@ -28,13 +28,6 @@ class Post extends Model
             });
         });
 
-        // old query use when db still one
-        // $query->when($filters['author'] ?? false, function($query, $author){
-        //     return $query->whereHas('author', function($query) use ($author){
-        //         $query->where('username', $author);
-        //     });
-        // });
-
         $query->when($filters['author'] ?? false, function($query, $author) {
             return DB::connection('mysql')->table('users')->where('username', $author);
         });

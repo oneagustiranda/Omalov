@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::connection('mysql2')->create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id');
-            $table->foreignId('user_id');
+            $table->foreignUuid('user_id');
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('image')->nullable();
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**

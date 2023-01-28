@@ -12,6 +12,7 @@ return array(
     'ZBateson\\MbWrapper\\' => array($vendorDir . '/zbateson/mb-wrapper/src'),
     'ZBateson\\MailMimeParser\\' => array($vendorDir . '/zbateson/mail-mime-parser/src'),
     'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
+    'Webpatser\\Uuid\\' => array($vendorDir . '/webpatser/laravel-uuid/src/Webpatser/Uuid'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'TijsVerkoyen\\CssToInlineStyles\\' => array($vendorDir . '/tijsverkoyen/css-to-inline-styles/src'),
     'Tightenco\\Collect\\' => array($vendorDir . '/tightenco/collect/src/Collect'),

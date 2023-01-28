@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\Models\UserIdentity;
 use Illuminate\Http\Request;
 use App\Models\MaritalStatus;
@@ -35,6 +36,7 @@ class VerificationController extends Controller
             'marital_status_id' => 'required'
         ]);  
 
+        $validatedData['id'] = (string) Str::uuid();
         $validatedData['user_id'] = auth()->user()->id;
 
         UserIdentity::create($validatedData);

@@ -46,8 +46,8 @@
                     <small class="d-block text-center mt-3">Belum punya Akun? <a href="/register">Daftar</a></small>
                   </div>
               </div>
-          </div>
-          
+              <p class="fs-6 text-center text-muted">Build Version 20230204.01</p>
+          </div>          
       </div>
       <div class="login-right bg-primary">
 

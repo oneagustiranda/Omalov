@@ -46,7 +46,7 @@ class AdminUserController extends Controller
         //     'year_birth' => $data['year_birth']
         // ]);
 
-        return redirect('/admin/users')->with('success', 'User updated successfully');
+        return redirect('/admin/users')->with('success', 'Data pengguna berhasil diperbarui!');
     }
 
 

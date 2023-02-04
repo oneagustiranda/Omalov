@@ -13,61 +13,63 @@
       </div>
     </div>
     <div class="row">
-      <!-- isi konten web -->
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="card card-table">
-            <div class="card-body booking_card">
-              <div class="table-responsive">
-                <table class="datatable table table-sm table-stripped table-hover table-center mb-0">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Year of Birth</th>
-                      <th scope="col">Verification</th>
-                      <th scope="col" class="text-center">Is Active</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                      @foreach ($users as $user)
-                        <tr>
-                          <td>{{ $loop->iteration }}</td>
-                          <td>{{ $user->name }}</td>                          
-                          
-                          @if($userIdentity = $userIdentities->where('user_id', $user->id)->first())
-                            <td>{{ $userIdentity->year_birth }}</td>
-                            <td>
-                              <a href="/admin/users/{{ $user->id }}/edit">
-                                Data Filled &#8599;
-                              </a>
-                            </td>
-                          @else
-                            <td> - </td>
-                            <td>Not Filled</td>
-                          @endif
+      @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
+      
+      <div class="col-sm-12">
+        <div class="card card-table">
+          <div class="card-body booking_card">
+            <div class="table-responsive">
+              <table class="datatable table table-sm table-stripped table-hover table-center mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama Lengkap</th>
+                    <th scope="col">Tahun Kelahiran</th>
+                    <th scope="col">Verifikasi</th>
+                    <th scope="col" class="text-center">Status Akun</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                      <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $user->name }}</td>                          
+                        
+                        @if($userIdentity = $userIdentities->where('user_id', $user->id)->first())
+                          <td>{{ $userIdentity->year_birth }}</td>
+                          <td>
+                            <a href="/admin/users/{{ $user->id }}/edit">
+                              Data Lengkap &#8599;
+                            </a>
+                          </td>
+                        @else
+                          <td> - </td>
+                          <td>Belum mengisi data</td>
+                        @endif
 
-                          @if($user->is_active)
-                            <td class="text-center">
-                              <span class="badge badge-pill bg-success">ACTIVE</span>                              
-                            </td>
-                          @else
-                            <td class="text-center">
-                              <span class="badge badge-pill bg-warning">INACTIVE</span>
-                            </td>
-                          @endif                          
+                        @if($user->is_active)
+                          <td class="text-center">
+                            <span class="badge badge-pill bg-success">AKTIF</span>                              
+                          </td>
+                        @else
+                          <td class="text-center">
+                            <span class="badge badge-pill bg-warning">BELUM AKTIF</span>
+                          </td>
+                        @endif                          
 
-                        </tr>
-                      @endforeach
-                  </tbody>
-                </table>
-              </div>
+                      </tr>
+                    @endforeach
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- akhir isi konten web -->
     </div>
 
 @endsection

@@ -7,9 +7,15 @@
         <li class="submenu {{ Request::is('admin/users*') ? 'active' : '' }}"> <a href="/admin/users"><i class="fa-solid fa-user"></i> <span> Pengguna </span> <span class="menu-arrow"></span></a>
           <ul class="submenu_class">
             <li><a href="/admin/users">Pengguna terdaftar</a></li>
-            <li><a href="#"> Edit Booking </a></li>
-            <li><a href="#"> Add Booking </a></li>
+            <li><a href="#">Akses pengguna</a></li>
+            <li><a href="#">Pengguna langganan</a></li>
           </ul>
+        </li>
+
+        <li class="{{ Request::is('admin/posts*') ? 'active' : '' }}">
+          <a href="/admin/posts"><i class="fas fa-columns"></i>
+            <span>Tulisan</span>
+          </a>         
         </li>
         
         {{-- <li class="list-divider"></li>

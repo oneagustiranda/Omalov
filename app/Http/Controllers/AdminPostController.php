@@ -9,7 +9,7 @@ use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-class DashboardPostController extends Controller
+class AdminPostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class DashboardPostController extends Controller
      */
     public function index()
     {
-        return view('dashboard.posts.index', [
+        return view('admin.posts.index', [
             'posts' => Post::where('user_id', auth()->user()->id)->get()
         ]);
     }
@@ -30,7 +30,7 @@ class DashboardPostController extends Controller
      */
     public function create()
     {
-        return view('dashboard.posts.create', [
+        return view('admin.posts.create', [
             'categories' => Category::all()
         ]);
     }
@@ -43,13 +43,17 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-            'slug' => 'required|unique:posts',
+            'slug' => 'required|unique:mysql2.posts',
             'category_id' => 'required',
             'image' => 'image|file|max:1024',
             'body' => 'required'
         ]);
+
+        
 
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('post-images');
@@ -60,7 +64,7 @@ class DashboardPostController extends Controller
 
         Post::create($validatedData);
 
-        return redirect('/dashboard/posts')->with('success', 'Postingan terbaru telah berhasil ditambahkan!');
+        return redirect('/admin/posts')->with('success', 'Postingan terbaru telah berhasil ditambahkan!');
     }
 
     /**
@@ -71,7 +75,7 @@ class DashboardPostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('dashboard.posts.show', [
+        return view('admin.posts.show', [
             'post' => $post
         ]);
     }
@@ -84,7 +88,7 @@ class DashboardPostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('dashboard.posts.edit', [
+        return view('admin.posts.edit', [
             'post' => $post,
             'categories' => Category::all()
         ]);
@@ -125,7 +129,7 @@ class DashboardPostController extends Controller
         Post::where('id', $post->id)
             ->update($validatedData);
 
-        return redirect('/dashboard/posts')->with('success', 'Postingan telah berhasil diperbarui!');
+        return redirect('/admin/posts')->with('success', 'Postingan telah berhasil diperbarui!');
     }
 
     /**
@@ -140,7 +144,7 @@ class DashboardPostController extends Controller
             Storage::delete($post->image);
         }
         Post::destroy($post->id);
-        return redirect('/dashboard/posts')->with('success', 'Postingan telah berhasil dihapus!');
+        return redirect('/admin/posts')->with('success', 'Postingan telah berhasil dihapus!');
     }
 
     public function checkSlug(Request $request)

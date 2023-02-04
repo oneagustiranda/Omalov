@@ -28,7 +28,7 @@ class Post extends Model
             });
         });
 
-        $query->when($filters['author'] ?? false, function($query, $author) {
+        $query->when($filters['author'] ?? false, function($author) {
             return DB::connection('mysql')->table('users')->where('username', $author);
         });
         

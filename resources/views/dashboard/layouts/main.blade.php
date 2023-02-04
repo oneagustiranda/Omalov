@@ -11,15 +11,6 @@
 
     <link href="/css/bottombar.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-    <link rel="stylesheet" type="text/css" href="/css/trix.css">
-    <script type="text/javascript" src="/js/trix.js"></script>
-
-    <style>
-      trix-toolbar [data-trix-button-group="file-tools"]{
-        display: none;
-      }
-    </style>
   </head>
   <body>
     

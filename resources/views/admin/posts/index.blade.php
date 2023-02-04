@@ -21,8 +21,8 @@
       @endif
       
       <div class="col-sm-12">
-        <div class="card card-table">
-          <div class="card-body booking_card">
+        <div class="card">
+          <div class="card-body card-table">
             <div class="table-responsive">
               <a href="/admin/posts/create" class="btn btn-primary mb-3"><i class="fa-solid fa-plus"></i> Buat tulisan baru</a>
               <table class="datatable table table-sm table-stripped table-hover table-center mb-0">

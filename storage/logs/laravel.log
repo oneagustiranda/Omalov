@@ -20193,3 +20193,23 @@ Did you mean one of these?
 #68 /home/onux/Documents/Service/laravel-project/omalov/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
 #69 {main}
 "} 
+[2023-02-04 02:40:41] local.ERROR: Header may not contain more than a single header, new line detected {"userId":"3c55ebc1-ab21-4748-9ead-b2eb371bccac","exception":"[object] (ErrorException(code: 0): Header may not contain more than a single header, new line detected at /home/onux/Documents/Service/laravel-project/omalov/vendor/symfony/http-foundation/Response.php:338)
+[stacktrace]
+#0 /home/onux/Documents/Service/laravel-project/omalov/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(231): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}()
+#2 /home/onux/Documents/Service/laravel-project/omalov/vendor/symfony/http-foundation/Response.php(338): header()
+#3 /home/onux/Documents/Service/laravel-project/omalov/vendor/symfony/http-foundation/Response.php(372): Symfony\\Component\\HttpFoundation\\Response->sendHeaders()
+#4 /home/onux/Documents/Service/laravel-project/omalov/public/index.php(53): Symfony\\Component\\HttpFoundation\\Response->send()
+#5 /home/onux/Documents/Service/laravel-project/omalov/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
+#6 {main}
+"} 
+[2023-02-04 02:40:58] local.ERROR: Header may not contain more than a single header, new line detected {"userId":"3c55ebc1-ab21-4748-9ead-b2eb371bccac","exception":"[object] (ErrorException(code: 0): Header may not contain more than a single header, new line detected at /home/onux/Documents/Service/laravel-project/omalov/vendor/symfony/http-foundation/Response.php:338)
+[stacktrace]
+#0 /home/onux/Documents/Service/laravel-project/omalov/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(231): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}()
+#2 /home/onux/Documents/Service/laravel-project/omalov/vendor/symfony/http-foundation/Response.php(338): header()
+#3 /home/onux/Documents/Service/laravel-project/omalov/vendor/symfony/http-foundation/Response.php(372): Symfony\\Component\\HttpFoundation\\Response->sendHeaders()
+#4 /home/onux/Documents/Service/laravel-project/omalov/public/index.php(53): Symfony\\Component\\HttpFoundation\\Response->send()
+#5 /home/onux/Documents/Service/laravel-project/omalov/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
+#6 {main}
+"} 

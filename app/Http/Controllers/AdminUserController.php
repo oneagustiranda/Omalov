@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MaritalStatus;
 use App\Models\UserIdentity;
 use App\Models\User;
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
@@ -12,10 +13,44 @@ class AdminUserController extends Controller
     // Show index view from user registered
     public function index()
     {
+        return view('admin.users.index');
+    }
+
+    public function list()
+    {
         // show user without role admin
-        $users = User::where('is_admin', false)->get();
+        $users = User::select('id', 'name', 'is_active')
+            ->where('is_admin', false)
+            ->orderBy('is_active', 'desc')
+            ->orderByRaw('(select count(*) from user_identities where user_identities.user_id = users.id) desc')
+            ->get();
         $userIdentities = UserIdentity::select('user_id', 'year_birth')->get();
-        return view('admin.users.index', compact('users', 'userIdentities'));
+
+        // query to show in datatable
+        $dataTable = Datatables::of($users)
+            ->addIndexColumn()
+            ->addColumn('year_birth', function($user) use($userIdentities) {
+                $userIdentity = $userIdentities->where('user_id', $user->id)->first();
+                return $userIdentity ? $userIdentity->year_birth : '-';
+            })
+            ->editColumn('is_active', function($user) {
+                if($user->is_active) {
+                    return '<span class="badge badge-pill bg-success">AKTIF</span>';
+                } else {
+                    return '<span class="badge badge-pill bg-warning">BELUM AKTIF</span>';
+                }
+            })
+            ->addColumn('action', function($user) use($userIdentities) {
+                if($userIdentities->where('user_id', $user->id)->first()) {
+                    return '<a href="/admin/users/'.$user->id.'/edit">Data Lengkap &#8599;</a>';
+                } else {
+                    return 'Belum mengisi data';
+                }
+            })
+            ->rawColumns(['is_active', 'action'])
+            ->make(true);
+
+        return $dataTable;
     }
 
     public function edit($id)

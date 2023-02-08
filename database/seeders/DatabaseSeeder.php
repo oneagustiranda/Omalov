@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'omalov@gmail.com',
         //     'password' => bcrypt('12345')
         // ]);
-        User::factory(3)->create();
+        User::factory(100)->create();
 
         MaritalStatus::create([
             'name' => 'Belum kawin'

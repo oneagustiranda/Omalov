@@ -74,11 +74,13 @@ Route::get('/admin', function(){
 })->middleware('auth', 'isActive', 'isAdmin');
 
 Route::get('/admin/users', [AdminUserController::class, 'index'])->middleware('auth', 'isActive', 'isAdmin');
+Route::get('/admin/users/list', [AdminUserController::class, 'list'])->name('admin.users.list')->middleware('auth', 'isActive', 'isAdmin');
 Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit']);
 Route::patch('/admin/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
 
 
 
+Route::get('/admin/posts/list', [AdminPostController::class, 'list'])->name('admin.posts.list')->middleware('auth', 'isActive', 'isAdmin');
 Route::get('/admin/posts/checkSlug', [AdminPostController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/admin/posts', AdminPostController::class)->middleware('auth');
 

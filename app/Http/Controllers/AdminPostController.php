@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
@@ -21,6 +22,33 @@ class AdminPostController extends Controller
         return view('admin.posts.index', [
             'posts' => Post::where('user_id', auth()->user()->id)->get()
         ]);
+    }
+
+    public function list()
+    {
+        $posts = Post::where('user_id', auth()->user()->id)
+            ->join('categories', 'posts.category_id', '=', 'categories.id')
+            ->select('posts.*', 'categories.name as category_name')
+            ->get();
+
+        // query to show in datatable
+        $dataTable = Datatables::of($posts)
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $actionBtn = '<a href="/admin/posts/' .$row->slug.'" class="badge bg-info"><i class="fa-solid fa-eye"></i></a>
+                    <a href="/admin/posts/'.$row->slug.'/edit" class="badge bg-warning"><i class="fa-solid fa-pen"></i></a>
+                    <form action="/admin/posts/'.$row->slug.'" method="POST" class="d-inline">
+                        '. csrf_field() .'
+                        <input type="hidden" name="_method" value="delete">
+                        <button class="badge bg-danger border-0" onclick="return confirm(\'Anda akan menghapus post ini?\')"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                ';
+                return $actionBtn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        
+        return $dataTable;
     }
 
     /**

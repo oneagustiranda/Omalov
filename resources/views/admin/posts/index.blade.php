@@ -1,5 +1,9 @@
 @extends('admin.layouts.main')
 
+@section('additional-css')
+  <link rel="stylesheet" href="/css/dataTables.bootstrap5.min.css">
+@endsection
+
 @section('container')
     <div class="page-header">
       <div class="row">
@@ -25,7 +29,7 @@
           <div class="card-body card-table">
             <div class="table-responsive">
               <a href="/admin/posts/create" class="btn btn-primary mb-3"><i class="fa-solid fa-plus"></i> Buat tulisan baru</a>
-              <table class="datatable table table-sm table-stripped table-hover table-center mb-0">
+              <table id="datatables" class="table table-sm table-stripped table-hover table-center mb-0">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -35,7 +39,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($posts as $post)
+                  {{-- @foreach ($posts as $post)
                   <tr>
                       <td>{{ $loop->iteration }}</td>
                       <td>{{ $post->title }}</td>
@@ -50,7 +54,7 @@
                           </form>
                       </td>
                     </tr>
-                  @endforeach
+                  @endforeach --}}
                 </tbody>
               </table>
             </div>
@@ -58,4 +62,27 @@
         </div>
       </div>
     </div>
+@endsection
+
+@section('additional-js')
+  <script src="/js/jquery.dataTables.min.js"></script>
+  <script src="/js/dataTables.bootstrap5.min.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      
+      $('#datatables').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('admin.posts.list') }}",
+        columns: [
+          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+          {data: 'title', name: 'title'},
+          {data: 'category_name', name: 'category_name'},
+          {data: 'action', name: 'action'},
+        ]
+      });
+      
+    });
+  </script>
 @endsection

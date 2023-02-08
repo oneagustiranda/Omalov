@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c81457edda0d052c2300ad32bd3cbcf1c921664f',
+        'reference' => 'd99adce65cb71b560be311e82013dab9a992eead',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -406,7 +406,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c81457edda0d052c2300ad32bd3cbcf1c921664f',
+            'reference' => 'd99adce65cb71b560be311e82013dab9a992eead',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -1419,6 +1419,15 @@
             'install_path' => __DIR__ . '/../webpatser/laravel-uuid',
             'aliases' => array(),
             'reference' => 'df92ebbc5ea71ee9e0d6e2861178be42ef7eb330',
+            'dev_requirement' => false,
+        ),
+        'yajra/laravel-datatables-oracle' => array(
+            'pretty_version' => 'v10.2.3',
+            'version' => '10.2.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../yajra/laravel-datatables-oracle',
+            'aliases' => array(),
+            'reference' => 'ad60c4aecc80257ae7dbfb7463076639d89c7739',
             'dev_requirement' => false,
         ),
         'zbateson/mail-mime-parser' => array(

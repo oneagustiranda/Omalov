@@ -21,6 +21,12 @@ class AdminUserController extends Controller
         // show user without role admin
         $users = User::select('id', 'name', 'is_active')
             ->where('is_admin', false)
+            ->where(function ($query) {
+                $query->whereDoesntHave('user_identities')
+                    ->orWhereHas('user_identities', function ($query) {
+                        $query->where('marital_status_id', '!=', 2);
+                    });
+            })
             ->orderBy('is_active', 'desc')
             ->orderByRaw('(select count(*) from user_identities where user_identities.user_id = users.id) desc')
             ->get();

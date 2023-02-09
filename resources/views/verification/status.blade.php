@@ -17,7 +17,7 @@
                     <div class="form-verification">
                         <div class="card text-bg-light mb-3" style="min-width: 18rem;">
                             <div class="card-body text-center">
-                              <p class="card-text">Data anda sudah diajukan, silahkan tunggu 1x24 Jam untuk direview.</p>
+                              <p class="card-text">{{ $status }}</p>
                             </div>
                           </div>
                     </div>

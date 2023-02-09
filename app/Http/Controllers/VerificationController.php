@@ -57,8 +57,19 @@ class VerificationController extends Controller
             }
 
             // redirect to verification status page
+            $statusKawin = User::whereHas('user_identities', function ($query) {
+                $query->where('marital_status_id', 2);
+            })->find(auth()->user()->id);
+
+            if($statusKawin) {
+                $status = 'Maaf pendaftaran anda kami tolak karena memiliki status kawin.';
+            } else {
+                $status = 'Data anda sudah diajukan, silahkan tunggu 1x24 Jam untuk direview.';
+            }
+
             return view('verification.status', [
-                'title' => 'Verification status'
+                'title' => 'Verification status',
+                'status' => $status 
             ]);            
         }
         else

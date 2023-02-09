@@ -38,23 +38,7 @@
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {{-- @foreach ($posts as $post)
-                  <tr>
-                      <td>{{ $loop->iteration }}</td>
-                      <td>{{ $post->title }}</td>
-                      <td>{{ $post->category->name }}</td>
-                      <td>
-                          <a href="/admin/posts/{{ $post->slug }}" class="badge bg-info"><i class="fa-solid fa-eye"></i></a>
-                          <a href="/admin/posts/{{ $post->slug }}/edit" class="badge bg-warning"><i class="fa-solid fa-pen"></i></a>
-                          <form action="/admin/posts/{{ $post->slug }}" method="POST" class="d-inline">
-                            @method('delete')
-                            @csrf
-                            <button class="badge bg-danger border-0" onclick="return confirm('Anda akan menghapus post ini?')"><i class="fa-solid fa-trash"></i></button>
-                          </form>
-                      </td>
-                    </tr>
-                  @endforeach --}}
+                <tbody>                 
                 </tbody>
               </table>
             </div>

@@ -22,7 +22,7 @@
                             <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}" class="img-fluid mt-3 mb-2">
                         </div>            
                     @else
-                        <img src="/storage/content-images/no-image cover.png" alt="{{ $post->category->name }}" class="img-fluid mt-3 mb-2">
+                        <img src="/img/no-image cover.png" alt="{{ $post->category->name }}" class="img-fluid mt-3 mb-2">
                     @endif
             
                     {!!  $post->body !!} 

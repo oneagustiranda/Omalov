@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\AdminCategoryController;
-use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AdminPostController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\AdminCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,7 @@ Route::get('/categories', function(){
     ]);
 });
 
+
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
@@ -68,17 +70,22 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 
 
+Route::post('/friends/{user}/send', [FriendController::class, 'sendRequest'])->name('friend.sendRequest')->middleware('auth', 'isActive');
+Route::post('/friends/{friendRequestId}/accept', [FriendController::class, 'acceptRequest'])->name('friend.acceptRequest')->middleware('auth', 'isActive');
+Route::get('/friends/{userId}/status', [FriendController::class, 'showStatus'])->middleware('auth', 'isActive');
+
+
+
+
+
 
 Route::get('/admin', function(){
     return view('admin.index');
 })->middleware('auth', 'isActive', 'isAdmin');
-
 Route::get('/admin/users', [AdminUserController::class, 'index'])->middleware('auth', 'isActive', 'isAdmin');
 Route::get('/admin/users/list', [AdminUserController::class, 'list'])->name('admin.users.list')->middleware('auth', 'isActive', 'isAdmin');
 Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit']);
 Route::patch('/admin/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
-
-
 
 Route::get('/admin/posts/list', [AdminPostController::class, 'list'])->name('admin.posts.list')->middleware('auth', 'isActive', 'isAdmin');
 Route::get('/admin/posts/checkSlug', [AdminPostController::class, 'checkSlug'])->middleware('auth');

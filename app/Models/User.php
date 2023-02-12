@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\FriendRequest;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -57,5 +58,22 @@ class User extends Authenticatable
     public function user_identities()
     {
         return $this->hasMany(UserIdentity::class);
+    }
+
+    public function sentFriendRequests()
+    {
+        return $this->hasMany(FriendRequest::class, 'user_id');
+    }
+
+    public function receivedFriendRequests()
+    {
+        return $this->hasMany(FriendRequest::class, 'friend_id');
+    }
+
+    public function friends()
+    {
+        return $this->belongsToMany(User::class, 'friend_requests', 'user_id', 'friend_id')
+            ->wherePivot('accepted', true)
+            ->withTimestamps();
     }
 }

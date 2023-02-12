@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::connection('mysql')->create('user_identities', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(Str::uuid());;
+            $table->uuid('id')->primary()->default(Str::uuid());
             $table->foreignUuid('user_id');
             $table->string('gender');
             $table->foreignId('marital_status_id');

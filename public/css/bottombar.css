@@ -1,8 +1,8 @@
 :root {
-    --bg-bottombar: #ff5d39;
+    --bg-bottombar: #fff;
     --color-bottombar: #ff9077;
-    --color-bottombar-hover: #ce4e32;
-    --color-bottombar-active: #fff;
+    --color-bottombar-hover: #b9b9b9;
+    --color-bottombar-active: #ff5d39;
 }
 
 /* awalan css untuk bottom bar (menu dibawah pada view mobile) */
@@ -14,6 +14,7 @@
     background-color: var(--bg-bottombar);
     height: 75px;
     border-radius: 20px 20px 0 0;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.25);
 }
 
 .bottom-bar .nav li a {
@@ -23,14 +24,15 @@
     height: 100%;
     display: inline-grid;
     place-items: center;
-    font-size: 20px;
+    font-size: 22.7px;
     z-index: 1;
     position: relative;
 }
 
 .bottom-bar .nav li a .title {
     display: none;
-    font-size: 14px;
+    font-size: 16px;
+    transform: translateY(-50%);
 }
 
 .bottom-bar .nav li a:hover {
@@ -39,8 +41,8 @@
 
 .bottom-bar .nav li a.nav-item-active {
     color: var(--color-bottombar-active);
-    transform: translateY(-20%);
-    font-size: 35px;
+    transform: translateY(10%);
+    font-size: 25.89px;
     transition: transform .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -48,16 +50,6 @@
     display: block;
 }
 
-.bottom-bar .nav .nav-indicator {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: var(--bg-bottombar);
-    position: absolute;
-    top: -35px;
-    left: calc(300px - 290px);
-    transition: left .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);;
-}
 /* akhir css untuk bottom bar (menu dibawah pada view mobile) */
 
 @media (min-width: 37.1em) {

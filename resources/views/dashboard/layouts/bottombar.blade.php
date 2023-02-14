@@ -1,27 +1,27 @@
-<div class="bottom-bar mt-3">
+<div class="bottom-bar mt-5">
   <ul class="nav">
     <span class="nav-indicator"></span>
     <li>
-      <a href="#" class="nav-item-active">
-        <i class="bx bx-home"></i>
-        <span class="title">Beranda</span>
+      <a href="#" class="{{ Request::is('dashboard') ? 'nav-item-active' : '' }}">
+        <i class="fa-solid fa-house"></i>
+        <span class="title">Dasbor</span>
       </a>
     </li>
     <li>
-      <a href="#">
-        <i class="bx bx-group"></i>
+      <a href="#" class="{{ Request::is('friends') ? 'nav-item-active' : '' }}">
+        <i class="fa-solid fa-group"></i>
         <span class="title">Pertemanan</span>
       </a>
     </li>
     <li>
-      <a href="#">
-        <i class="bx bx-chat"></i>
+      <a href="#" class="{{ Request::is('friends') ? 'nav-item-active' : '' }}">
+        <i class="fa-solid fa-chat"></i>
         <span class="title">Pesan</span>
       </a>
     </li>
     <li>
-      <a href="#">
-        <i class="bx bx-bell"></i>
+      <a href="#" class="{{ Request::is('friends') ? 'nav-item-active' : '' }}">
+        <i class="fa-solid fa-bell"></i>
         <span class="title">Notifikasi</span>
       </a>
     </li>

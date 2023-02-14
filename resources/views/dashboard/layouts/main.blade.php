@@ -10,7 +10,10 @@
     <link href="/css/dashboard.css" rel="stylesheet">
 
     <link href="/css/bottombar.css" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {{-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> --}}
+
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
   </head>
   <body>
     
@@ -30,6 +33,5 @@
     
 
     <script src="/js/bootstrap.js"></script>
-    <script src="/js/bottombar.js"></script>
   </body>
 </html>

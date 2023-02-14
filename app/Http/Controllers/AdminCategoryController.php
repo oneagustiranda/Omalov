@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class AdminCategoryController extends Controller
 {
@@ -16,7 +17,7 @@ class AdminCategoryController extends Controller
     {
         $this->authorize('admin');
         
-        return view('dashboard.categories.index', [
+        return view('admin.categories.index', [
             'categories' => Category::all()
         ]);
     }
@@ -28,7 +29,7 @@ class AdminCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -39,18 +40,14 @@ class AdminCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|max:30',
+            'slug' => 'required|unique:mysql2.categories'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
+        Category::create($validatedData);
+
+        return redirect('/admin/masterdata/categories')->with('success', 'Kategori baru telah berhasil ditambahkan!');
     }
 
     /**
@@ -61,7 +58,7 @@ class AdminCategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', ['category' => $category]);
     }
 
     /**
@@ -73,7 +70,14 @@ class AdminCategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:30'
+        ]);
+
+        Category::where('id', $category->id)
+            ->update($validatedData);
+
+        return redirect('/admin/masterdata/categories')->with('success', 'Kategori telah berhasil diperbarui!');
     }
 
     /**
@@ -84,6 +88,13 @@ class AdminCategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        Category::destroy($category->id);
+        return redirect('/admin/masterdata/categories')->with('success', 'Kategori telah berhasil dihapus!');
+    }
+
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Category::class, 'slug', $request->name);
+        return response()->json(['slug' => $slug]);
     }
 }

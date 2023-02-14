@@ -91,4 +91,5 @@ Route::get('/admin/posts/list', [AdminPostController::class, 'list'])->name('adm
 Route::get('/admin/posts/checkSlug', [AdminPostController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/admin/posts', AdminPostController::class)->middleware('auth');
 
-Route::resource('/admin/categories', AdminCategoryController::class)->except('show')->middleware('isAdmin');
+Route::resource('/admin/masterdata/categories', AdminCategoryController::class)->except('show')->middleware('auth', 'isAdmin');
+Route::get('/admin/masterdata/categories/checkSlug', [AdminCategoryController::class, 'checkSlug'])->middleware('auth');

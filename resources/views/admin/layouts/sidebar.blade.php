@@ -18,23 +18,14 @@
           </a>         
         </li>
         
-        {{-- <li class="list-divider"></li>
-        <li class="menu-title mt-3"> <span>TULISAN</span> </li>
-        <li class="submenu {{ Request::is('dashboard/categories*') ? 'active' : '' }}"> <a href="/dashboard/categories"><i class="fas fa-columns"></i> <span> Kategori post </span> <span class="menu-arrow"></span></a>
+        <li class="list-divider"></li>
+        <li class="menu-title mt-3"> <span>KONFIGURASI</span> </li>
+        <li class="submenu {{ Request::is('admin/masterdata/*') ? 'active' : '' }}"> <a href="#"><i class="fas fa-gear"></i> <span> Master data </span> <span class="menu-arrow"></span></a>
           <ul class="submenu_class" style="display: none;">
-            <li><a href="/dashboard/categories">Kategori post</a></li>
-            <li><a href="register.html">Register </a></li>
-            <li><a href="forgot-password.html">Forgot Password </a></li>
-            <li><a href="change-password.html">Change Password </a></li>
-            <li><a href="lock-screen.html">Lockscreen </a></li>
-            <li><a href="profile.html">Profile </a></li>
-            <li><a href="gallery.html">Gallery </a></li>
-            <li><a href="error-404.html">404 Error </a></li>
-            <li><a href="error-500.html">500 Error </a></li>
-            <li><a href="blank-page.html">Blank Page </a></li>
+            <li><a href="/admin/masterdata/categories">Kategori post</a></li>
           </ul>
         </li>
-        <li class="submenu"> <a href="#"><i class="fas fa-share-alt"></i> <span> Multi Level </span> <span class="menu-arrow"></span></a>
+        {{-- <li class="submenu"> <a href="#"><i class="fas fa-share-alt"></i> <span> Multi Level </span> <span class="menu-arrow"></span></a>
           <ul class="submenu_class" style="display: none;">
             <li><a href="">Level 1 </a></li>
             <li><a href="">Level 2 </a></li>

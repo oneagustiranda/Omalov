@@ -9,18 +9,18 @@
     </li>
     <li>
       <a href="#" class="{{ Request::is('friends') ? 'nav-item-active' : '' }}">
-        <i class="fa-solid fa-group"></i>
+        <i class="fa-solid fa-user-group"></i>
         <span class="title">Pertemanan</span>
       </a>
     </li>
     <li>
-      <a href="#" class="{{ Request::is('friends') ? 'nav-item-active' : '' }}">
-        <i class="fa-solid fa-chat"></i>
+      <a href="#" class="{{ Request::is('chat') ? 'nav-item-active' : '' }}">
+        <i class="fa-solid fa-messages"></i>
         <span class="title">Pesan</span>
       </a>
     </li>
     <li>
-      <a href="#" class="{{ Request::is('friends') ? 'nav-item-active' : '' }}">
+      <a href="#" class="{{ Request::is('notif') ? 'nav-item-active' : '' }}">
         <i class="fa-solid fa-bell"></i>
         <span class="title">Notifikasi</span>
       </a>

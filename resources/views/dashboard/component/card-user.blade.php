@@ -1,6 +1,5 @@
 <div class="col">
     <div class="card">
-        <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{ $user['name'] }} 
                 <span class="badge rounded-pill bg-secondary">{{ $user['age'] }} Tahun</span>

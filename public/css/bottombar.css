@@ -1,6 +1,6 @@
 :root {
     --bg-bottombar: #fff;
-    --color-bottombar: #ff9077;
+    --color-bottombar: #d1d1d1;
     --color-bottombar-hover: #b9b9b9;
     --color-bottombar-active: #ff5d39;
 }
@@ -8,6 +8,7 @@
 /* awalan css untuk bottom bar (menu dibawah pada view mobile) */
 .bottom-bar .nav {
     position: fixed;
+    width: 100vw;
     bottom: 0;
     list-style-type: none;
     display: flex;

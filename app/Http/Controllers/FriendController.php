@@ -10,7 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class FriendController extends Controller
 {
-    //
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('dashboard.friends.index');
+    }
+
     public function sendRequest(Request $request, User $user)
     {
         // Check if a friend request already exists

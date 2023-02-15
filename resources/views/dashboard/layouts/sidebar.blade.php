@@ -3,14 +3,14 @@
       <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="/dashboard">
-            <span class="fa-solid fa-house-laptop"></span>
-            Dashboard
+            <i class="fa-solid fa-house"></i>
+            Dasbor
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/posts*') ? 'active' : '' }}" href="/dashboard/posts">
-            <span data-feather="file-text"></span>
-            My Post
+          <a class="nav-link {{ Request::is('friends') ? 'active' : '' }}" href="/friends">
+            <i class="fa-solid fa-user-group"></i>
+            Teman
           </a>
         </li>          
       </ul>

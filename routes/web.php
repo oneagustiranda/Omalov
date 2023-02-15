@@ -70,6 +70,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 
 
+Route::get('/friends', [FriendController::class, 'index'])->middleware('auth', 'isActive');
 Route::post('/friends/{user}/send', [FriendController::class, 'sendRequest'])->name('friend.sendRequest')->middleware('auth', 'isActive');
 Route::post('/friends/{friendRequestId}/accept', [FriendController::class, 'acceptRequest'])->name('friend.acceptRequest')->middleware('auth', 'isActive');
 Route::get('/friends/{userId}/status', [FriendController::class, 'showStatus'])->middleware('auth', 'isActive');

@@ -3,13 +3,23 @@
 @section('container')
 
     <div class="d-grid gap-2 mt-3">
-        <button class="btn btn-outline-secondary text-start" type="button">Button 
-            <span class="text-end"><i class="fa-solid fa-arrow-right"></i></span>
-        </button>
-        <button class="btn btn-outline-secondary text-start" type="button">Button</button>
+        <a href="/friends/list" class="btn btn-outline-secondary text-start" type="button">Daftar teman  
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <div class="mt-3 mb-4">
+        <h1 class="h3 fw-bold mt-3">Permintaan pertemanan</h1>
+        <p>Tanggapi permintaan yang ada dan sabar untuk permintaanmu yang tertunda!</p>
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-2 mb-5">
-        <p>test ini halaman teman</p>
+
+        @foreach ($usersWithStatus as $user)
+            @if ($user['status'] == 'friend_request_sent' || $user['status'] == 'friend_request_received')
+                @include('dashboard.component.card-user')
+            @endif
+        @endforeach
+
     </div>
 @endsection

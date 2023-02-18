@@ -60,16 +60,25 @@ class User extends Authenticatable
         return $this->hasMany(UserIdentity::class);
     }
 
+    /**
+     * The sentFriendRequests() method is used to get a list of friend requests sent by the current user.
+     */
     public function sentFriendRequests()
     {
         return $this->hasMany(FriendRequest::class, 'user_id');
     }
 
+    /**
+     * The receivedFriendRequests() method is used to get a list of friend requests received by the current user.
+     */
     public function receivedFriendRequests()
     {
         return $this->hasMany(FriendRequest::class, 'friend_id');
     }
 
+    /**
+     * The friends() method is used to get a list of users who are friends of the current user.
+     */
     public function friends()
     {
         return $this->belongsToMany(User::class, 'friend_requests', 'user_id', 'friend_id')

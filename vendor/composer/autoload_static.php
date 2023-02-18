@@ -650,7 +650,7 @@ class ComposerStaticInit24172d4f68ced6e188fac0c7303633a0
         'App\\Http\\Requests\\StoreUserIdentityRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreUserIdentityRequest.php',
         'App\\Http\\Requests\\UpdateUserIdentityRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateUserIdentityRequest.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
-        'App\\Models\\Friend' => __DIR__ . '/../..' . '/app/Models/Friend.php',
+        'App\\Models\\FriendRequest' => __DIR__ . '/../..' . '/app/Models/FriendRequest.php',
         'App\\Models\\MaritalStatus' => __DIR__ . '/../..' . '/app/Models/MaritalStatus.php',
         'App\\Models\\PasswordReset' => __DIR__ . '/../..' . '/app/Models/PasswordReset.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',

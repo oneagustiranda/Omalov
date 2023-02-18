@@ -33,7 +33,7 @@ return array(
     'App\\Http\\Requests\\StoreUserIdentityRequest' => $baseDir . '/app/Http/Requests/StoreUserIdentityRequest.php',
     'App\\Http\\Requests\\UpdateUserIdentityRequest' => $baseDir . '/app/Http/Requests/UpdateUserIdentityRequest.php',
     'App\\Models\\Category' => $baseDir . '/app/Models/Category.php',
-    'App\\Models\\Friend' => $baseDir . '/app/Models/Friend.php',
+    'App\\Models\\FriendRequest' => $baseDir . '/app/Models/FriendRequest.php',
     'App\\Models\\MaritalStatus' => $baseDir . '/app/Models/MaritalStatus.php',
     'App\\Models\\PasswordReset' => $baseDir . '/app/Models/PasswordReset.php',
     'App\\Models\\Post' => $baseDir . '/app/Models/Post.php',

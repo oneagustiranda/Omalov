@@ -19,6 +19,24 @@ class DashboardController extends Controller
         $activeUsersWithAge = User::join('user_identities', 'users.id', '=', 'user_identities.user_id')
         ->where('users.is_active', true)
         ->where('user_identities.gender', '!=', $currentUserGender)
+        ->whereNotIn('users.id', function($query) use ($currentUserId) {
+            $query->select('friend_id')
+                ->from('friend_requests')
+                ->where('user_id', $currentUserId)
+                ->where('accepted', true);
+        })
+        ->whereNotIn('users.id', function($query) use ($currentUserId) {
+            $query->select('friend_id')
+                ->from('friend_requests')
+                ->where('user_id', $currentUserId)
+                ->where('accepted', false);
+        })
+        ->whereNotIn('users.id', function($query) use ($currentUserId) {
+            $query->select('user_id')
+                ->from('friend_requests')
+                ->where('friend_id', $currentUserId)
+                ->where('accepted', false);
+        })
         ->select(
             'users.id',
             'users.name',

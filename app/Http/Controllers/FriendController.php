@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserIdentity;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\FriendRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FriendController extends Controller
 {
@@ -17,10 +19,73 @@ class FriendController extends Controller
      */
     public function index()
     {
-        return view('dashboard.friends.index');
+        $users = User::join('user_identities', 'users.id', '=', 'user_identities.user_id')
+            ->where('users.id', '!=', auth()->id())
+            ->select(
+                'users.id',
+                'users.name',
+                'user_identities.city',
+                DB::raw("YEAR(CURRENT_DATE) - user_identities.year_birth as age")
+            )
+            ->get();
+
+        $usersWithStatus = [];
+
+        foreach ($users as $user) {
+            $status = $this->showStatus($user->id);
+            if ($status !== 'add_friends') {
+                $usersWithStatus[] = [
+                    'user' => $user,
+                    'status' => $status,
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'city' => $user->city,
+                    'age' => $user->age
+                ];
+            }
+        }
+
+        // function add friends
+        $friendController = new \App\Http\Controllers\FriendController();
+
+        return view('dashboard.friends.index', compact('usersWithStatus', 'friendController'));
     }
 
-    public function sendRequest(Request $request, User $user)
+    public function list()
+    {
+        $users = User::join('user_identities', 'users.id', '=', 'user_identities.user_id')
+            ->where('users.id', '!=', auth()->id())
+            ->select(
+                'users.id',
+                'users.name',
+                'user_identities.city',
+                DB::raw("YEAR(CURRENT_DATE) - user_identities.year_birth as age")
+            )
+            ->get();
+
+        $usersWithStatus = [];
+
+        foreach ($users as $user) {
+            $status = $this->showStatus($user->id);
+            if ($status === 'friends') {
+                $usersWithStatus[] = [
+                    'user' => $user,
+                    'status' => $status,
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'city' => $user->city,
+                    'age' => $user->age
+                ];
+            }
+        }
+
+        // function add friends
+        $friendController = new \App\Http\Controllers\FriendController();
+
+        return view('dashboard.friends.list', compact('usersWithStatus', 'friendController'));
+    }
+
+    public function sendRequest(User $user)
     {
         // Check if a friend request already exists
         $existingRequest = FriendRequest::where('user_id', Auth::id())
@@ -79,4 +144,5 @@ class FriendController extends Controller
 
         return 'add_friends';
     }
+
 }

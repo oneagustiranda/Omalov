@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,14 +10,12 @@
     <link href="/css/dashboard.css" rel="stylesheet">
 
     <link href="/css/bottombar.css" rel="stylesheet">
-    {{-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> --}}
-
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
   </head>
   <body>
     
-@include('dashboard.layouts.header')
+    @include('dashboard.layouts.header')
 
     <div class="container-fluid mb-5">
       <div class="row">

@@ -79,8 +79,6 @@ Route::get('/friends/{userId}/status', [FriendController::class, 'showStatus'])-
 
 
 
-
-
 Route::get('/admin', function(){
     return view('admin.index');
 })->middleware('auth', 'isActive', 'isAdmin');

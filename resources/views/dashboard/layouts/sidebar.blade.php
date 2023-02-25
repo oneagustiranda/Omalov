@@ -8,11 +8,17 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('friends*') ? 'active' : '' }}" href="/friends">
+          <a class="nav-link {{ Request::is('friends/') ? 'active' : '' }}" href="/friends">
             <i class="fa-solid fa-user-group"></i>
             Teman
           </a>
-        </li>          
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('chats/') ? 'active' : '' }}" href="/chats">
+            <i class="fa-solid fa-message"></i>
+            Pesan
+          </a>
+        </li>      
       </ul>
 
       @can('admin')

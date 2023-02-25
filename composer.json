@@ -15,6 +15,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "mnapoli/silly": "^1.8",
+        "munafio/chatify": "^1.5",
         "nategood/httpful": "^0.3.2",
         "orchestra/testbench": "^7.1",
         "symfony/process": "^6.0",

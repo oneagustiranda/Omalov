@@ -13,7 +13,7 @@ class CreateFavoritesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ch_favorites', function (Blueprint $table) {
+        Schema::connection('mysql3')->create('ch_favorites', function (Blueprint $table) {
             $table->bigInteger('id');
             $table->uuid('user_id');
             $table->uuid('favorite_id');
@@ -30,6 +30,6 @@ class CreateFavoritesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ch_favorites');
+        Schema::connection('mysql3')->dropIfExists('ch_favorites');
     }
 }

@@ -249,18 +249,18 @@ class MessagesController extends Controller
     public function getContacts(Request $request)
     {
         // get all users that received/sent message from/to [Auth user]
-        $users = Message::join('users',  function ($join) {
-            $join->on('ch_messages.from_id', '=', 'users.id')
-                ->orOn('ch_messages.to_id', '=', 'users.id');
+        $users = Message::join('mysql.users',  function ($join) {
+            $join->on('mysql3.ch_messages.from_id', '=', 'mysql.users.id')
+                ->orOn('mysql3.ch_messages.to_id', '=', 'mysql.users.id');
         })
         ->where(function ($q) {
-            $q->where('ch_messages.from_id', Auth::user()->id)
-            ->orWhere('ch_messages.to_id', Auth::user()->id);
+            $q->where('mysql3.ch_messages.from_id', Auth::user()->id)
+            ->orWhere('mysql3.ch_messages.to_id', Auth::user()->id);
         })
-        ->where('users.id','!=',Auth::user()->id)
-        ->select('users.*',DB::raw('MAX(ch_messages.created_at) max_created_at'))
+        ->where('mysql.users.id','!=',Auth::user()->id)
+        ->select('mysql.users.*',DB::raw('MAX(mysql3.ch_messages.created_at) max_created_at'))
         ->orderBy('max_created_at', 'desc')
-        ->groupBy('users.id')
+        ->groupBy('mysql.users.id')
         ->paginate($request->per_page ?? $this->perPage);
 
         $usersList = $users->items();
@@ -359,9 +359,20 @@ class MessagesController extends Controller
     {
         $getRecords = null;
         $input = trim(filter_var($request['input']));
-        $records = User::where('id','!=',Auth::user()->id)
-                    ->where('name', 'LIKE', "%{$input}%")
-                    ->paginate($request->per_page ?? $this->perPage);
+        $records = User::where('name', 'LIKE', "%{$input}%")
+                ->where('users.is_active', true)
+                ->where(function ($query) {
+                    $query->whereHas('friends', function ($q) {
+                        $q->where('friend_requests.user_id', Auth::user()->id)
+                            ->where('friend_requests.accepted', true);
+                    })->orWhereHas('friends', function ($q) {
+                        $q->where('friend_requests.friend_id', Auth::user()->id)
+                            ->where('friend_requests.accepted', true);
+                    });
+                })
+                ->where('users.id', '!=', Auth::user()->id)
+                ->paginate($request->per_page ?? $this->perPage);
+
         foreach ($records->items() as $record) {
             $getRecords .= view('Chatify::layouts.listItem', [
                 'get' => 'search_item',

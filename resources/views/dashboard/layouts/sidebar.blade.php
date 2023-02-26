@@ -14,7 +14,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('chats/') ? 'active' : '' }}" href="/chats">
+          <a class="nav-link {{ Request::is('chat/') ? 'active' : '' }}" href="/chat">
             <i class="fa-solid fa-message"></i>
             Pesan
           </a>

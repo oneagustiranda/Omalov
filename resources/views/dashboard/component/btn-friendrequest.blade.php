@@ -14,6 +14,7 @@
         @break
     @case('friends')
         <button class="btn btn-primary" disabled>Teman</button>
+        <a  href="/chat/{{ $user['id'] }}" class="btn btn-outline-primary">Kirimkan pesan</a>
         @break
     @default
         <form action="{{ route('friend.sendRequest', $user['id']) }}" method="post">

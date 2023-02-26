@@ -22,12 +22,12 @@ return [
     |-------------------------------------
     */
     'routes' => [
-        'prefix' => env('CHATIFY_ROUTES_PREFIX', 'chats'),
+        'prefix' => env('CHATIFY_ROUTES_PREFIX', 'chat'),
         'middleware' => env('CHATIFY_ROUTES_MIDDLEWARE', ['web','auth','isActive']),
         'namespace' => env('CHATIFY_ROUTES_NAMESPACE', 'App\Http\Controllers\vendor\Chatify'),
     ],
     'api_routes' => [
-        'prefix' => env('CHATIFY_API_ROUTES_PREFIX', 'chats/api'),
+        'prefix' => env('CHATIFY_API_ROUTES_PREFIX', 'chat/api'),
         'middleware' => env('CHATIFY_API_ROUTES_MIDDLEWARE', ['api']),
         'namespace' => env('CHATIFY_API_ROUTES_NAMESPACE', 'App\Http\Controllers\vendor\Chatify\Api'),
     ],

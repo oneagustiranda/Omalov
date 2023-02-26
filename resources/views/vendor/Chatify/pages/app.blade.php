@@ -5,7 +5,7 @@
         {{-- Header and search bar --}}
         <div class="m-header">
             <nav>
-                <a href="/dashboard"><i class="fas fa-arrow-left"></i> <span class="messenger-headTitle">Back</span> </a>
+                <a href="#"><i class="fa-solid fa-message"></i> <span class="messenger-headTitle">Messenger</span> </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#"><i class="fas fa-cog settings-btn"></i></a>
@@ -51,13 +51,16 @@
              </div> --}}
 
              {{-- ---------------- [ Search Tab ] ---------------- --}}
-           <div class="messenger-tab search-tab app-scroll" data-view="search">
+            <div class="messenger-tab search-tab app-scroll" data-view="search">
                 {{-- items --}}
                 <p class="messenger-title">Search</p>
                 <div class="search-records">
                     <p class="message-hint center-el"><span>Type to search..</span></p>
                 </div>
-             </div>
+            </div>
+        </div>
+        <div class="m-footer">
+            @include('dashboard.layouts.bottombar')
         </div>
     </div>
 

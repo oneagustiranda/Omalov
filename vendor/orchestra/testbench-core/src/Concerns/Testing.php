@@ -9,12 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bootstrap\HandleExceptions;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Queue\Queue;
 use Illuminate\Support\Facades\ParallelTesting;
+use Illuminate\View\Component;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Throwable;
@@ -32,7 +34,7 @@ trait Testing
     /**
      * The Illuminate application instance.
      *
-     * @var \Illuminate\Foundation\Application
+     * @var \Illuminate\Foundation\Application|null
      */
     protected $app;
 
@@ -60,7 +62,7 @@ trait Testing
     /**
      * The exception thrown while running an application destruction callback.
      *
-     * @var \Throwable
+     * @var \Throwable|null
      */
     protected $callbackException;
 
@@ -74,6 +76,8 @@ trait Testing
     /**
      * Setup the test environment.
      *
+     * @internal
+     *
      * @return void
      */
     final protected function setUpTheTestEnvironment(): void
@@ -83,6 +87,9 @@ trait Testing
 
             $this->setUpParallelTestingCallbacks();
         }
+
+        /** @var \Illuminate\Foundation\Application $app */
+        $app = $this->app;
 
         foreach ($this->afterApplicationRefreshedCallbacks as $callback) {
             \call_user_func($callback);
@@ -94,7 +101,7 @@ trait Testing
             \call_user_func($callback);
         }
 
-        Model::setEventDispatcher($this->app['events']);
+        Model::setEventDispatcher($app['events']);
 
         $this->setUpApplicationRoutes();
 
@@ -103,6 +110,8 @@ trait Testing
 
     /**
      * Clean up the testing environment before the next test.
+     *
+     * @internal
      *
      * @return void
      */
@@ -113,7 +122,7 @@ trait Testing
 
             $this->tearDownParallelTestingCallbacks();
 
-            $this->app->flush();
+            $this->app?->flush();
 
             $this->app = null;
         }
@@ -129,6 +138,7 @@ trait Testing
         }
 
         if (class_exists(Mockery::class)) {
+            /** @phpstan-ignore-next-line */
             if ($container = Mockery::getContainer()) {
                 $this->addToAssertionCount($container->mockery_getExpectationCount());
             }
@@ -145,10 +155,19 @@ trait Testing
         $this->afterApplicationCreatedCallbacks = [];
         $this->beforeApplicationDestroyedCallbacks = [];
 
+        if (property_exists($this, 'originalExceptionHandler')) {
+            $this->originalExceptionHandler = null;
+        }
+
+        if (property_exists($this, 'originalDeprecationHandler')) {
+            $this->originalDeprecationHandler = null;
+        }
+
         Artisan::forgetBootstrappers();
-
+        Component::flushCache();
+        Component::forgetComponentsResolver();
+        Component::forgetFactory();
         Queue::createPayloadUsing(null);
-
         HandleExceptions::forgetApp();
 
         if ($this->callbackException) {
@@ -159,35 +178,47 @@ trait Testing
     /**
      * Boot the testing helper traits.
      *
-     * @param  array<class-string, class-string>  $uses
+     * @internal
      *
+     * @param  array<class-string, class-string>  $uses
      * @return array<class-string, class-string>
      */
     final protected function setUpTheTestEnvironmentTraits(array $uses): array
     {
         $this->setUpDatabaseRequirements(function () use ($uses) {
             if (isset($uses[RefreshDatabase::class])) {
+                /** @phpstan-ignore-next-line */
                 $this->refreshDatabase();
             }
 
             if (isset($uses[DatabaseMigrations::class])) {
+                /** @phpstan-ignore-next-line */
                 $this->runDatabaseMigrations();
+            }
+
+            if (isset($uses[DatabaseTruncation::class])) {
+                /** @phpstan-ignore-next-line */
+                $this->truncateDatabaseTables();
             }
         });
 
         if (isset($uses[DatabaseTransactions::class])) {
+            /** @phpstan-ignore-next-line */
             $this->beginDatabaseTransaction();
         }
 
         if (isset($uses[WithoutMiddleware::class])) {
+            /** @phpstan-ignore-next-line */
             $this->disableMiddlewareForAllTests();
         }
 
         if (isset($uses[WithoutEvents::class])) {
+            /** @phpstan-ignore-next-line */
             $this->disableEventsForAllTests();
         }
 
         if (isset($uses[WithFaker::class])) {
+            /** @phpstan-ignore-next-line */
             $this->setUpFaker();
         }
 
@@ -200,6 +231,7 @@ trait Testing
     protected function setUpParallelTestingCallbacks(): void
     {
         if (class_exists(ParallelTesting::class) && $this instanceof TestCase) {
+            /** @phpstan-ignore-next-line */
             ParallelTesting::callSetUpTestCaseCallbacks($this);
         }
     }
@@ -210,6 +242,7 @@ trait Testing
     protected function tearDownParallelTestingCallbacks(): void
     {
         if (class_exists(ParallelTesting::class) && $this instanceof TestCase) {
+            /** @phpstan-ignore-next-line */
             ParallelTesting::callTearDownTestCaseCallbacks($this);
         }
     }
@@ -218,7 +251,6 @@ trait Testing
      * Register a callback to be run after the application is refreshed.
      *
      * @param  callable():void  $callback
-     *
      * @return void
      */
     protected function afterApplicationRefreshed(callable $callback): void
@@ -234,7 +266,6 @@ trait Testing
      * Register a callback to be run after the application is created.
      *
      * @param  callable():void  $callback
-     *
      * @return void
      */
     protected function afterApplicationCreated(callable $callback): void
@@ -250,7 +281,6 @@ trait Testing
      * Register a callback to be run before the application is destroyed.
      *
      * @param  callable():void  $callback
-     *
      * @return void
      */
     protected function beforeApplicationDestroyed(callable $callback): void

@@ -18,14 +18,14 @@
     },
     "require": {
         "php": "^8.0",
-        "fakerphp/faker": "^1.9.2",
-        "laravel/framework": "^9.2",
-        "mockery/mockery": "^1.4.4",
-        "orchestra/testbench-core": "^7.1",
+        "fakerphp/faker": "^1.21",
+        "laravel/framework": "^9.52.4",
+        "mockery/mockery": "^1.5.1",
+        "orchestra/testbench-core": "^7.22.1",
         "phpunit/phpunit": "^9.5.10",
         "spatie/laravel-ray": "^1.28",
-        "symfony/process": "^6.0",
-        "symfony/yaml": "^6.0",
+        "symfony/process": "^6.0.9",
+        "symfony/yaml": "^6.0.9",
         "vlucas/phpdotenv": "^5.4.1"
     },
     "extra": {
@@ -34,16 +34,9 @@
         }
     },
     "scripts": {
-        "prepare": [
-            "@composer run post-autoload-dump"
-        ],
-        "test": [
-            "@composer run prepare",
-            "@php vendor/bin/phpunit -c ./ --color"
-        ],
-        "post-autoload-dump": [
-            "@php vendor/bin/testbench package:discover --ansi"
-        ]
+        "post-autoload-dump": "@composer run prepare",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "test": "@php vendor/bin/phpunit -c ./ --color"
     },
     "config": {
         "sort-packages": true

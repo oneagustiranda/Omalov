@@ -4,11 +4,17 @@ namespace Orchestra\Testbench\Foundation;
 
 use Illuminate\Support\Arr;
 use Orchestra\Testbench\Concerns\CreatesApplication;
+use function Orchestra\Testbench\default_environment_variables;
 
+/**
+ * @phpstan-type TExtraConfig array{providers?: array, dont-discover?: array, env?: array}
+ * @phpstan-type TConfig array{extra?: TExtraConfig, load_environment_variables?: bool, enabled_package_discoveries?: bool}
+ */
 class Application
 {
     use CreatesApplication {
         resolveApplication as protected resolveApplicationFromTrait;
+        resolveApplicationEnvironmentVariables as protected resolveApplicationEnvironmentVariablesFromTrait;
     }
 
     /**
@@ -21,14 +27,17 @@ class Application
     /**
      * List of configurations.
      *
-     * @var array<string, mixed>
+     * @var TExtraConfig
      */
-    protected $config = [];
+    protected $config = [
+        'providers' => [],
+        'dont-discover' => [],
+    ];
 
     /**
      * The application resolving callback.
      *
-     * @var callable(\Illuminate\Foundation\Application):void|null
+     * @var (callable(\Illuminate\Foundation\Application):(void))|null
      */
     protected $resolvingCallback;
 
@@ -42,8 +51,8 @@ class Application
     /**
      * Create new application resolver.
      *
-     * @param  string  $basePath
-     * @param  callable(\Illuminate\Foundation\Application):void|null  $resolvingCallback
+     * @param  string|null  $basePath
+     * @param  (callable(\Illuminate\Foundation\Application):(void))|null  $resolvingCallback
      */
     public function __construct(?string $basePath = null, ?callable $resolvingCallback = null)
     {
@@ -52,13 +61,30 @@ class Application
     }
 
     /**
+     * Create symlink to vendor path via new application instance.
+     *
+     * @param  string|null  $basePath
+     * @param  string  $workingVendorPath
+     * @return \Illuminate\Foundation\Application
+     */
+    public static function createVendorSymlink(?string $basePath, string $workingVendorPath)
+    {
+        $app = static::create(basePath: $basePath, options: ['extra' => ['dont-discover' => ['*']]]);
+
+        (new Bootstrap\CreateVendorSymlink($workingVendorPath))->bootstrap($app);
+
+        return $app;
+    }
+
+    /**
      * Create new application instance.
      *
      * @param  string|null  $basePath
-     * @param  callable(\Illuminate\Foundation\Application):void|null  $resolvingCallback
+     * @param  (callable(\Illuminate\Foundation\Application):(void))|null  $resolvingCallback
      * @param  array  $options
-     *
      * @return \Illuminate\Foundation\Application
+     *
+     * @phpstan-param TConfig  $options
      */
     public static function create(?string $basePath = null, ?callable $resolvingCallback = null, array $options = [])
     {
@@ -68,9 +94,10 @@ class Application
     /**
      * Configure the application options.
      *
-     * @param  array<string, mixed>  $options
-     *
+     * @param  array  $options
      * @return $this
+     *
+     * @phpstan-param TConfig  $options
      */
     public function configure(array $options)
     {
@@ -82,7 +109,9 @@ class Application
             Arr::set($options, 'extra.dont-discover', []);
         }
 
-        $this->config = Arr::only($options['extra'] ?? [], ['dont-discover', 'providers']);
+        $this->config = Arr::only(
+            $options['extra'] ?? [], ['dont-discover', 'providers', 'env']
+        );
 
         return $this;
     }
@@ -101,7 +130,6 @@ class Application
      * Get package providers.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return array
      */
     protected function getPackageProviders($app)
@@ -131,5 +159,57 @@ class Application
     protected function getBasePath()
     {
         return $this->basePath ?? static::applicationBasePath();
+    }
+
+    /**
+     * Resolve application core environment variables implementation.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function resolveApplicationEnvironmentVariables($app)
+    {
+        $this->resolveApplicationEnvironmentVariablesFromTrait($app);
+
+        $variables = array_merge(
+            ($this->config['env'] ?? []),
+            default_environment_variables()
+        );
+
+        (new Bootstrap\LoadEnvironmentVariablesFromArray($variables))->bootstrap($app);
+    }
+
+    /**
+     * Resolve application Console Kernel implementation.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function resolveApplicationConsoleKernel($app)
+    {
+        $kernel = 'Orchestra\Testbench\Console\Kernel';
+
+        if (file_exists($app->basePath('app/Console/Kernel.php')) && class_exists('App\Console\Kernel')) {
+            $kernel = 'App\Console\Kernel';
+        }
+
+        $app->singleton('Illuminate\Contracts\Console\Kernel', $kernel);
+    }
+
+    /**
+     * Resolve application HTTP Kernel implementation.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function resolveApplicationHttpKernel($app)
+    {
+        $kernel = 'Orchestra\Testbench\Http\Kernel';
+
+        if (file_exists($app->basePath('app/Http/Kernel.php')) && class_exists('App\Http\Kernel')) {
+            $kernel = 'App\Http\Kernel';
+        }
+
+        $app->singleton('Illuminate\Contracts\Http\Kernel', $kernel);
     }
 }

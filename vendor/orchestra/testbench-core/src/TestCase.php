@@ -4,6 +4,7 @@ namespace Orchestra\Testbench;
 
 use Illuminate\Foundation\Testing;
 use PHPUnit\Framework\TestCase as PHPUnit;
+use Throwable;
 
 abstract class TestCase extends PHPUnit implements Contracts\TestCase
 {
@@ -12,6 +13,7 @@ abstract class TestCase extends PHPUnit implements Contracts\TestCase
         Testing\Concerns\InteractsWithConsole,
         Testing\Concerns\InteractsWithContainer,
         Testing\Concerns\InteractsWithDatabase,
+        Testing\Concerns\InteractsWithDeprecationHandling,
         Testing\Concerns\InteractsWithExceptionHandling,
         Testing\Concerns\InteractsWithSession,
         Testing\Concerns\InteractsWithTime,
@@ -45,6 +47,8 @@ abstract class TestCase extends PHPUnit implements Contracts\TestCase
      */
     protected function setUp(): void
     {
+        static::$latestResponse = null;
+
         $this->setUpTheTestEnvironment();
     }
 
@@ -65,6 +69,7 @@ abstract class TestCase extends PHPUnit implements Contracts\TestCase
      */
     protected function setUpTraits()
     {
+        /** @var array<class-string, class-string> $uses */
         $uses = array_flip(class_uses_recursive(static::class));
 
         return $this->setUpTheTestEnvironmentTraits($uses);
@@ -78,5 +83,30 @@ abstract class TestCase extends PHPUnit implements Contracts\TestCase
     protected function refreshApplication()
     {
         $this->app = $this->createApplication();
+    }
+
+    /**
+     * Clean up the testing environment before the next test case.
+     *
+     * @return void
+     */
+    public static function tearDownAfterClass(): void
+    {
+        static::$latestResponse = null;
+    }
+
+    /**
+     * This method is called when a test method did not execute successfully.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     */
+    protected function onNotSuccessfulTest(Throwable $exception): void
+    {
+        parent::onNotSuccessfulTest(
+            ! \is_null(static::$latestResponse)
+                ? static::$latestResponse->transformNotSuccessfulException($exception)
+                : $exception
+        );
     }
 }

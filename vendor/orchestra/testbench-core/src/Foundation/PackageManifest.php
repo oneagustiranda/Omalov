@@ -4,6 +4,7 @@ namespace Orchestra\Testbench\Foundation;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\PackageManifest as IlluminatePackageManifest;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class PackageManifest extends IlluminatePackageManifest
@@ -18,7 +19,7 @@ class PackageManifest extends IlluminatePackageManifest
     /**
      * List of required packages.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $requiredPackages = [
         'spatie/laravel-ray',
@@ -30,7 +31,7 @@ class PackageManifest extends IlluminatePackageManifest
      * @param  \Illuminate\Filesystem\Filesystem  $files
      * @param  string  $basePath
      * @param  string  $manifestPath
-     * @param  object|null  $testbench
+     * @param  \Orchestra\Testbench\Contracts\TestCase|object|null  $testbench
      */
     public function __construct(Filesystem $files, $basePath, $manifestPath, $testbench = null)
     {
@@ -44,11 +45,11 @@ class PackageManifest extends IlluminatePackageManifest
      *
      * @param  \Illuminate\Foundation\Application  $app
      * @param  object|null  $testbench
-     *
      * @return void
      */
     public static function swap($app, $testbench = null)
     {
+        /** @var \Illuminate\Foundation\PackageManifest $base */
         $base = $app->make(IlluminatePackageManifest::class);
 
         $app->instance(
@@ -63,12 +64,24 @@ class PackageManifest extends IlluminatePackageManifest
      * Set Testbench instance.
      *
      * @param  object|null  $testbench
-     *
      * @return void
      */
     public function setTestbench($testbench): void
     {
         $this->testbench = \is_object($testbench) ? $testbench : null;
+    }
+
+    /**
+     * Requires packages.
+     *
+     * @param  string[]  $packages
+     * @return $this
+     */
+    public function requires(...$packages)
+    {
+        $this->requiredPackages = array_merge($this->requiredPackages, Arr::wrap($packages));
+
+        return $this;
     }
 
     /**
@@ -133,10 +146,9 @@ class PackageManifest extends IlluminatePackageManifest
      * Write the given manifest array to disk.
      *
      * @param  array  $manifest
+     * @return void
      *
      * @throws \Exception
-     *
-     * @return void
      */
     protected function write(array $manifest)
     {

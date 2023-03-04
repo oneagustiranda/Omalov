@@ -85,4 +85,10 @@ class User extends Authenticatable
             ->wherePivot('accepted', true)
             ->withTimestamps();
     }
+
+    public function messages()
+    {
+        return $this->hasMany(ChMessage::class, 'from_id')->orWhere('to_id', $this->id);
+    }
+
 }

@@ -3,8 +3,8 @@
 {{-- Meta tags --}}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="id" content="{{ $id }}">
-<meta name="type" content="{{ $type }}">
 <meta name="messenger-color" content="{{ $messengerColor }}">
+<meta name="messenger-theme" content="{{ $dark_mode }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="url" content="{{ url('').'/'.config('chatify.routes.prefix') }}" data-user="{{ Auth::user()->id }}">
 
@@ -24,5 +24,9 @@
 <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
 <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
-{{-- Messenger Color Style--}}
-@include('Chatify::layouts.messengerColor')
+{{-- Setting messenger primary color to css --}}
+<style>
+    :root {
+        --primary-color: {{ $messengerColor }};
+    }
+</style>

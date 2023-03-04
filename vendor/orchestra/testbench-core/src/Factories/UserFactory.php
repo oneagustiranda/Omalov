@@ -3,20 +3,21 @@
 namespace Orchestra\Testbench\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Illuminate\Foundation\Auth\User>
+ * @phpstan-type TModel \Illuminate\Foundation\Auth\User
+ *
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<TModel>
  */
 class UserFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
-     * @var string
+     * @var class-string<TModel>
      */
-    protected $model = User::class;
+    protected $model = \Illuminate\Foundation\Auth\User::class;
 
     /**
      * Define the model's default state.
@@ -26,8 +27,8 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -41,10 +42,8 @@ class UserFactory extends Factory
      */
     public function unverified()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'email_verified_at' => null,
-            ];
-        });
+        return $this->state(fn (array $attributes) => [
+            'email_verified_at' => null,
+        ]);
     }
 }

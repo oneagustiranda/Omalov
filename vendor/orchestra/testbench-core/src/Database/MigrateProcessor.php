@@ -18,15 +18,15 @@ class MigrateProcessor
     /**
      * The migrator options.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $options = [];
 
     /**
      * Construct a new schema migrator.
      *
-     * @param \Orchestra\Testbench\Contracts\TestCase  $testbench
-     * @param array  $options
+     * @param  \Orchestra\Testbench\Contracts\TestCase  $testbench
+     * @param  array<string, mixed>  $options
      */
     public function __construct(TestCase $testbench, array $options = [])
     {
@@ -61,8 +61,7 @@ class MigrateProcessor
     /**
      * Dispatch artisan command.
      *
-     * @param  string $command
-     *
+     * @param  string  $command
      * @return void
      */
     protected function dispatch(string $command): void

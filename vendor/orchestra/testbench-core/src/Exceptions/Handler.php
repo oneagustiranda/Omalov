@@ -8,9 +8,18 @@ use Throwable;
 class Handler extends ExceptionHandler
 {
     /**
+     * A list of exception types with their corresponding custom log levels.
+     *
+     * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
+     */
+    protected $levels = [
+        //
+    ];
+
+    /**
      * A list of the exception types that should not be reported.
      *
-     * @var array
+     * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
         //
@@ -19,7 +28,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $dontFlash = [
         'password',
@@ -32,7 +41,6 @@ class Handler extends ExceptionHandler
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
      * @param  \Throwable  $e
-     *
      * @return void
      */
     public function report(Throwable $e)
@@ -45,8 +53,7 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Throwable  $e
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response|\Illuminate\Http\Response
      */
     public function render($request, Throwable $e)
     {

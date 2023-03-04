@@ -1,22 +1,37 @@
 <?php
 
-use Orchestra\Testbench\Console\Commander;
+use Orchestra\Testbench\Foundation\Application;
+use Orchestra\Testbench\Foundation\Config;
 
-$APP_KEY = $_SERVER['APP_KEY'] ?? $_ENV['APP_KEY'] ?? 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF';
-$DB_CONNECTION = $_SERVER['DB_CONNECTION'] ?? $_ENV['DB_CONNECTION'] ??  'testing';
+/**
+ * Create Laravel application.
+ *
+ * @param  string  $workingPath
+ * @return \Illuminate\Foundation\Application
+ */
+$createApp = function (string $workingPath) {
+    $config = Config::loadFromYaml(
+        defined('TESTBENCH_WORKING_PATH') ? TESTBENCH_WORKING_PATH : $workingPath
+    );
 
-$config = ['env' => ['APP_KEY="'.$APP_KEY.'"', 'DB_CONNECTION="'.$DB_CONNECTION.'"'], 'providers' => []];
+    $hasEnvironmentFile = file_exists("{$workingPath}/.env");
 
-$app = (new Commander($config, getcwd()))->laravel();
+    return Application::create(
+        basePath: $config['laravel'],
+        options: ['load_environment_variables' => $hasEnvironmentFile, 'extra' => $config->getExtraAttributes()],
+    );
+};
 
-unset($APP_KEY, $DB_CONNECTION, $config);
+$app = $createApp(realpath(__DIR__.'/../'));
 
+unset($createApp);
+
+/** @var \Illuminate\Routing\Router $router */
 $router = $app->make('router');
 
 collect(glob(__DIR__.'/../routes/testbench-*.php'))
     ->each(function ($routeFile) use ($app, $router) {
         require $routeFile;
     });
-
 
 return $app;

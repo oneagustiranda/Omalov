@@ -58,7 +58,7 @@ class MessagesController extends Controller
         // send the response
         return Response::json([
             'favorite' => $favorite,
-            'fetch' => $fetch ?? [],
+            'fetch' => $fetch ?? null,
             'user_avatar' => $userAvatar ?? null,
         ]);
     }
@@ -129,9 +129,7 @@ class MessagesController extends Controller
 
         if (!$error->status) {
             // send to database
-            $messageID = mt_rand(9, 999999999) + time();
-            Chatify::newMessage([
-                'id' => $messageID,
+            $message = Chatify::newMessage([
                 'type' => $request['type'],
                 'from_id' => Auth::user()->id,
                 'to_id' => $request['id'],
@@ -143,14 +141,16 @@ class MessagesController extends Controller
             ]);
 
             // fetch message to send it with the response
-            $messageData = Chatify::fetchMessage($messageID);
+            $messageData = Chatify::parseMessage($message);
 
             // send to user using pusher
-            Chatify::push("private-chatify.".$request['id'], 'messaging', [
-                'from_id' => Auth::user()->id,
-                'to_id' => $request['id'],
-                'message' => Chatify::messageCard($messageData, 'default')
-            ]);
+            if (Auth::user()->id != $request['id']) {
+                Chatify::push("private-chatify.".$request['id'], 'messaging', [
+                    'from_id' => Auth::user()->id,
+                    'to_id' => $request['id'],
+                    'message' => $messageData
+                ]);
+            }
         }
 
         // send the response
@@ -391,9 +391,8 @@ class MessagesController extends Controller
      */
     public function setActiveStatus(Request $request)
     {
-        $userId = $request['user_id'];
         $activeStatus = $request['status'] > 0 ? 1 : 0;
-        $status = User::where('id', $userId)->update(['active_status' => $activeStatus]);
+        $status = User::where('id', Auth::user()->id)->update(['active_status' => $activeStatus]);
         return Response::json([
             'status' => $status,
         ], 200);

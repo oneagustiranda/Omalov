@@ -342,11 +342,8 @@ class MessagesController extends Controller
                     ->whereExists(function ($query) {
                         $query->select(DB::raw(1))
                             ->from('friend_requests')
-                            ->where(function ($subquery) {
-                                $subquery->where('user_id', Auth::user()->id)
-                                    ->orWhere('friend_id', Auth::user()->id);
-                            })
-                            ->where('accepted', true);
+                            ->where('accepted', true)
+                            ->whereRaw('users.id = friend_requests.user_id or users.id = friend_requests.friend_id');
                     })
                     ->paginate($request->per_page ?? $this->perPage);
 

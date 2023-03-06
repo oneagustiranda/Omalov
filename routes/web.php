@@ -28,7 +28,7 @@ Route::get('/', function () {
         'title' => 'Home',
         'active' => 'home'
     ]);
-});
+})->middleware('guest');
 
 Route::get('/about', function () {
     return view('about', [

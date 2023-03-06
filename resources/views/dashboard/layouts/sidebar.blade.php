@@ -8,7 +8,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('friends/') ? 'active' : '' }}" href="/friends">
+          <a class="nav-link {{ Request::is('friends*') ? 'active' : '' }}" href="/friends">
             <i class="fa-solid fa-user-group"></i>
             Teman
           </a>

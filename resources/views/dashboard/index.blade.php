@@ -18,16 +18,22 @@
         </div>
     </form>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">        
-        @foreach ($activeUsersWithAge as $user)
-            @if (!request('min-age') && !request('max-age'))
-                @include('dashboard.component.card-user')
-            @elseif (($user['age'] >= request('min-age') && $user['age'] <= request('max-age'))
-                    || ($user['age'] >= request('min-age') && !request('max-age'))
-                    || (!request('min-age') && $user['age'] <= request('max-age')))
-                @include('dashboard.component.card-user')
-            @endif
-        @endforeach               
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+        @if ($activeUsersWithAge->count() > 0)
+            @foreach ($activeUsersWithAge as $user)
+                @if (!request('min-age') && !request('max-age'))
+                    @include('dashboard.component.card-user')
+                @elseif (($user['age'] >= request('min-age') && $user['age'] <= request('max-age'))
+                        || ($user['age'] >= request('min-age') && !request('max-age'))
+                        || (!request('min-age') && $user['age'] <= request('max-age')))
+                    @include('dashboard.component.card-user')
+                @endif
+            @endforeach
+        @else
+            <div class="align-item-center">
+                <p class="rounded-pill text-bg-light text-center p-1">Maaf untuk saat ini tidak ada pengguna yang cocok untuk ditampilkan</p>
+            </div>
+        @endif        
     </div>
 
 @endsection

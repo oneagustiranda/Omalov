@@ -10,10 +10,15 @@
 
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
         @foreach ($usersWithStatus as $user)
-        @if ($user['status'] == 'friends')
-            @include('dashboard.component.card-user')
-        @endif
-    @endforeach
+            @if ($user['status'] == 'friends')
+                @include('dashboard.component.card-user')
+                <p>hi</p>
+            @else
+                <div class="bg-red align-item-center">
+                    <p class="rounded-pill text-bg-light text-center p-1">Kamu belum memiliki teman untuk diajak kenalan, mari cari teman</p>
+                </div>
+            @endif
+        @endforeach
     </div>    
 
 @endsection

@@ -336,17 +336,27 @@ class MessagesController extends Controller
     {        
         $getRecords = null;
         $input = trim(filter_var($request['input']));
-        $records = User::where('id','!=',Auth::user()->id)
-                    ->where('name', 'LIKE', "%{$input}%")
-                    ->where('is_active', true)
-                    ->whereExists(function ($query) {
-                        $query->select(DB::raw(1))
-                            ->from('friend_requests')
-                            ->where('accepted', true)
-                            ->whereRaw('users.id = friend_requests.user_id or users.id = friend_requests.friend_id');
+        $records = User::from('users as u')
+            ->where('u.id', '!=', Auth::user()->id)
+            ->where('u.name', 'LIKE', "%{$input}%")
+            ->where('u.is_active', true)
+            ->whereExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('friend_requests as f')
+                    ->where('f.accepted', true)
+                    ->where(function ($q1) {
+                        $q1->where('f.user_id', Auth::user()->id)
+                        ->orWhere(function ($q2) {
+                                $q2->where('f.friend_id', Auth::user()->id);
+                        });
                     })
-                    ->paginate($request->per_page ?? $this->perPage);
-
+                    ->where(function ($q) {
+                        $q->whereRaw('u.id = f.user_id')
+                        ->orWhereRaw('u.id = f.friend_id');
+                    });
+            })
+            ->paginate($request->per_page ?? $this->perPage);
+    
         foreach ($records->items() as $record) {            
             $getRecords .= view('Chatify::layouts.listItem', [
                 'get' => 'search_item',

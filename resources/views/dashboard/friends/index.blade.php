@@ -14,14 +14,14 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-2 mb-5">
-        @foreach ($usersWithStatus as $user)
-            @if ($user['status'] == 'friend_request_sent' || $user['status'] == 'friend_request_received')
+        @if (count($usersWithStatus) > 0)
+            @foreach ($usersWithStatus as $user)
                 @include('dashboard.component.card-user')
-            @else
-                <div class="align-item-center">
-                    <p class="rounded-pill text-bg-light text-center p-1">Maaf untuk saat ini tidak ada permintaan pertemanan yang tertunda</p>
-                </div>
-            @endif
-        @endforeach
+            @endforeach
+        @else
+            <div class="align-item-center">
+                <p class="rounded-pill text-bg-light text-center p-1">Maaf untuk saat ini tidak ada permintaan pertemanan yang tertunda</p>
+            </div>
+        @endif
     </div>
 @endsection

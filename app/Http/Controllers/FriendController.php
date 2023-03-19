@@ -19,31 +19,22 @@ class FriendController extends Controller
      */
     public function index()
     {
-        $users = User::join('user_identities', 'users.id', '=', 'user_identities.user_id')
+        $usersWithStatus = User::join('user_identities', 'users.id', '=', 'user_identities.user_id')
             ->where('users.id', '!=', auth()->id())
+            ->with('user_identities', 'receivedFriendRequests')
+            ->whereHas('receivedFriendRequests', function ($query) {
+                $query->whereIn('accepted', [false, null])->where('user_id', auth()->id());
+            })
+            ->orWhereHas('sentFriendRequests', function ($query) {
+                $query->whereIn('accepted', [false, null])->where('friend_id', auth()->id());
+            })
             ->select(
                 'users.id',
                 'users.name',
-                'user_identities.city',
-                DB::raw("YEAR(CURRENT_DATE) - user_identities.year_birth as age")
+                DB::raw("YEAR(CURRENT_DATE) - user_identities.year_birth as age"),
+                'user_identities.city'
             )
-            ->get();
-
-        $usersWithStatus = [];
-
-        foreach ($users as $user) {
-            $status = $this->showStatus($user->id);
-            if ($status !== 'add_friends') {
-                $usersWithStatus[] = [
-                    'user' => $user,
-                    'status' => $status,
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'city' => $user->city,
-                    'age' => $user->age
-                ];
-            }
-        }
+            ->get(); 
 
         // function add friends
         $friendController = new \App\Http\Controllers\FriendController();
@@ -53,32 +44,28 @@ class FriendController extends Controller
 
     public function list()
     {
-        $users = User::join('user_identities', 'users.id', '=', 'user_identities.user_id')
-            ->where('users.id', '!=', auth()->id())
-            ->select(
-                'users.id',
-                'users.name',
-                'user_identities.city',
-                DB::raw("YEAR(CURRENT_DATE) - user_identities.year_birth as age")
-            )
-            ->get();
-
-        $usersWithStatus = [];
-
-        foreach ($users as $user) {
-            $status = $this->showStatus($user->id);
-            if ($status === 'friends') {
-                $usersWithStatus[] = [
-                    'user' => $user,
-                    'status' => $status,
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'city' => $user->city,
-                    'age' => $user->age
-                ];
-            }
-        }
-
+        $currentUserId = auth()->id();
+        $usersWithStatus = User::select('users.*')
+        ->join('friend_requests', function ($join) use ($currentUserId) {
+            $join->on('users.id', '=', 'friend_requests.friend_id')
+                ->where('friend_requests.user_id', '=', $currentUserId)
+                ->where('friend_requests.accepted', '=', true)
+                ->orWhere(function ($query) use ($currentUserId) {
+                    $query->on('users.id', '=', 'friend_requests.user_id')
+                        ->where('friend_requests.friend_id', '=', $currentUserId)
+                        ->where('friend_requests.accepted', '=', true);
+                });
+        })
+        ->join('user_identities', 'users.id', '=', 'user_identities.user_id')
+        ->select(
+            'users.id',
+            'users.name',
+            'user_identities.year_birth',
+            'user_identities.city'
+        )
+        ->distinct()
+        ->get();
+            
         // function add friends
         $friendController = new \App\Http\Controllers\FriendController();
 
